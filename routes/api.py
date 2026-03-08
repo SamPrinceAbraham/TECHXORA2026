@@ -61,9 +61,15 @@ def problems_api():
     # DOMAIN_CODES = {'Climate & Sustainability Tech': 'CS', ...}
     # So it's already {Full: Short}. Perfect.
 
+    # Create a normalized mapping (lowercase stripped -> code)
+    NORMALIZED_CODES = {k.strip().lower(): v for k, v in DOMAIN_CODES.items()}
+
     for p in all_ps:
-        full_domain = p.domain or 'Unknown'
-        code = DOMAIN_CODES.get(full_domain, full_domain) # Fallback to full if not found
+        full_domain = (p.domain or 'Unknown').strip()
+        domain_key = full_domain.lower()
+        
+        # Try finding code in normalized mapping
+        code = NORMALIZED_CODES.get(domain_key, full_domain)
         
         counters[code] = counters.get(code, 0) + 1
         prob_id = f"TX-{code}-{counters[code]:02d}"

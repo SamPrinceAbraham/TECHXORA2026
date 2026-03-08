@@ -43,6 +43,31 @@
             max-width: 100vw;
         }
 
+        /* ── Custom Scrollbar ───────────────────────────── */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, var(--pri), var(--sec));
+            border-radius: 4px;
+            border: 2px solid var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--pri);
+        }
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--pri) var(--bg);
+        }
+
         body {
             background: var(--bg);
             color: var(--text);
@@ -1559,9 +1584,23 @@
     <div class="side-login" id="sideLogin">
         <h3>PORTAL LOGIN</h3>
         <p>// Redirect to Management Portals</p>
-        <a href="{{ url_for('auth.login', role='participant') }}" class="login-btn"> <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"></polygon></svg> Participant Portal</a>
-        <a href="{{ url_for('auth.login', role='volunteer') }}" class="login-btn"> <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"></polygon></svg> Volunteer Portal</a>
-        <a href="{{ url_for('auth.login', role='admin') }}" class="login-btn"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"></polygon></svg> Admin Portal</a>
+        <a href="{{ url_for('auth.login', role='participant') }}" class="login-btn"> <svg
+                xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                style="vertical-align: middle; display: inline-block;">
+                <polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"></polygon>
+            </svg> Participant Portal</a>
+        <a href="{{ url_for('auth.login', role='volunteer') }}" class="login-btn"> <svg
+                xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                style="vertical-align: middle; display: inline-block;">
+                <polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"></polygon>
+            </svg> Volunteer Portal</a>
+        <a href="{{ url_for('auth.login', role='admin') }}" class="login-btn"><svg xmlns="http://www.w3.org/2000/svg"
+                width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;">
+                <polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"></polygon>
+            </svg> Admin Portal</a>
     </div>
 
     <main>
@@ -1610,7 +1649,12 @@
             </div>
 
             <div class="hero-btns">
-                <a href="/register" class="btn-solid"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"></polygon></svg> REGISTER NOW</a>
+                <a href="/register" class="btn-solid"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em"
+                        height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round"
+                        style="vertical-align: middle; display: inline-block;">
+                        <polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"></polygon>
+                    </svg> REGISTER NOW</a>
             </div>
         </section>
 
@@ -2524,6 +2568,11 @@
                     const titleEl = document.getElementById('ps-modal-title');
                     const body = document.getElementById('ps-modal-body');
 
+                    // Move the modal overlay to the body to fix stacking context issues
+                    if (overlay.parentElement !== document.body) {
+                        document.body.appendChild(overlay);
+                    }
+
                     // Set header info
                     eyebrow.textContent = '01 // DOMAIN';
                     titleEl.textContent = domainTitles[domainKey] || domainKey;
@@ -2579,70 +2628,6 @@
                     });
                 }
 
-                /* ══ BACKGROUND ══ */
-                const bgCanvasElem = document.getElementById('bgCanvas');
-                const ctx_bg = bgCanvasElem.getContext('2d');
-                let W_bg, H_bg;
-                function resize_bg() { W_bg = bgCanvasElem.width = window.innerWidth; H_bg = bgCanvasElem.height = window.innerHeight; }
-                resize_bg(); window.addEventListener('resize', resize_bg);
-
-                const STARS_bg = Array.from({ length: 200 }, () => ({
-                    x: Math.random(), y: Math.random(),
-                    r: .1 + Math.random() * 1.1, a: .04 + Math.random() * .4,
-                    ph: Math.random() * Math.PI * 2, spd: .0002 + Math.random() * .001,
-                }));
-                const BLOBS_bg = [
-                    { x: .15, y: .2, r: .45, c: '70,50,150', ph: 0, spd: .00020 },
-                    { x: .82, y: .15, r: .38, c: '50,40,130', ph: 2.1, spd: .00016 },
-                    { x: .5, y: .8, r: .36, c: '90,60,180', ph: 4.5, spd: .0003 },
-                ];
-                const PARTS_bg = Array.from({ length: 60 }, () => ({
-                    x: Math.random() * 9999, y: Math.random() * 9999,
-                    vx: (Math.random() - .5) * .22, vy: (Math.random() - .5) * .22,
-                    r: .5 + Math.random() * 1.5, a: .15 + Math.random() * .4, ph: Math.random() * Math.PI * 2,
-                }));
-                let last_bg = 0;
-                function loop_bg(t) {
-                    const dt = Math.min(t - last_bg, 50); last_bg = t;
-                    ctx_bg.fillStyle = '#0d0e1a'; ctx_bg.fillRect(0, 0, W_bg, H_bg);
-                    // nebula
-                    for (const b of BLOBS_bg) {
-                        const ox = Math.sin(t * b.spd + b.ph) * .1, oy = Math.cos(t * b.spd * .7 + b.ph) * .09;
-                        const cx = (b.x + ox) * W_bg, cy = (b.y + oy) * H_bg, r = b.r * Math.max(W_bg, H_bg);
-                        const g = ctx_bg.createRadialGradient(cx, cy, 0, cx, cy, r);
-                        g.addColorStop(0, `rgba(${b.c},0.09)`); g.addColorStop(1, `rgba(${b.c},0)`);
-                        ctx_bg.fillStyle = g; ctx_bg.fillRect(0, 0, W_bg, H_bg);
-                    }
-                    // stars
-                    for (const s of STARS_bg) {
-                        const p = .5 + .5 * Math.sin(t * s.spd + s.ph);
-                        ctx_bg.beginPath(); ctx_bg.arc(s.x * W_bg, s.y * H_bg, s.r, 0, Math.PI * 2);
-                        ctx_bg.fillStyle = `rgba(167,139,250,${s.a * p})`; ctx_bg.fill();
-                    }
-                    // particles
-                    const CD = 100;
-                    for (let i = 0; i < PARTS_bg.length; i++) {
-                        const a = PARTS_bg[i]; a.x += a.vx; a.y += a.vy;
-                        if (a.x < 0) a.x = W_bg; if (a.x > W_bg) a.x = 0; if (a.y < 0) a.y = H_bg; if (a.y > H_bg) a.y = 0;
-                        for (let j = i + 1; j < PARTS_bg.length; j++) {
-                            const b = PARTS_bg[j]; const dx = a.x - b.x, dy = a.y - b.y, d = Math.sqrt(dx * dx + dy * dy);
-                            if (d < CD) { ctx_bg.beginPath(); ctx_bg.strokeStyle = `rgba(80,60,180,${(1 - d / CD) * .08})`; ctx_bg.lineWidth = .5; ctx_bg.moveTo(a.x, a.y); ctx_bg.lineTo(b.x, b.y); ctx_bg.stroke(); }
-                        }
-                        const p = .6 + .4 * Math.sin(t * .002 + a.ph);
-                        ctx_bg.beginPath(); ctx_bg.arc(a.x, a.y, a.r * p, 0, Math.PI * 2);
-                        ctx_bg.fillStyle = `rgba(167,139,250,${a.a})`; ctx_bg.shadowBlur = 6; ctx_bg.shadowColor = 'rgba(167,139,250,.6)';
-                        ctx_bg.fill(); ctx_bg.shadowBlur = 0;
-                    }
-                    requestAnimationFrame(loop_bg);
-                }
-                requestAnimationFrame(loop_bg);
-
-                /* CURSOR */
-                const cur_bg = document.getElementById('cur'), ring_bg = document.getElementById('cur-ring');
-                let mx_bg = 0, my_bg = 0, rx_bg = 0, ry_bg = 0;
-                document.addEventListener('mousemove', e => { mx_bg = e.clientX; my_bg = e.clientY; });
-                (function cl_bg() { rx_bg += (mx_bg - rx_bg) * .12; ry_bg += (my_bg - ry_bg) * .12; cur_bg.style.left = (mx_bg - 5) + 'px'; cur_bg.style.top = (my_bg - 5) + 'px'; ring_bg.style.left = (rx_bg - 16) + 'px'; ring_bg.style.top = (ry_bg - 16) + 'px'; requestAnimationFrame(cl_bg); })();
-
                 /* SCROLL REVEAL */
                 const obs = new IntersectionObserver(entries => {
                     entries.forEach((e, i) => { if (e.isIntersecting) { e.target.style.transitionDelay = (i * .1) + 's'; e.target.classList.add('visible'); } });
@@ -2671,7 +2656,12 @@
                     <a href="/register"
                         style="display:inline-block;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:13px;letter-spacing:4px;padding:18px 52px;background:linear-gradient(135deg,#a78bfa,#818cf8);color:#fff;cursor:pointer;border:none;text-decoration:none;text-transform:uppercase;clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);box-shadow:0 0 40px rgba(167,139,250,0.5);transition:all .3s;"
                         onmouseover="this.style.boxShadow='0 0 70px rgba(167,139,250,0.8)';this.style.transform='translateY(-3px)'"
-                        onmouseout="this.style.boxShadow='0 0 40px rgba(167,139,250,0.5)';this.style.transform=''"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"></polygon></svg>
+                        onmouseout="this.style.boxShadow='0 0 40px rgba(167,139,250,0.5)';this.style.transform=''"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" style="vertical-align: middle; display: inline-block;">
+                            <polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"></polygon>
+                        </svg>
                         REGISTER YOUR TEAM</a>
                     <a href="#problems"
                         style="display:inline-block;font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:13px;letter-spacing:3px;padding:17px 44px;background:transparent;color:var(--pri);text-decoration:none;text-transform:uppercase;border:1px solid rgba(167,139,250,0.4);clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);transition:all .3s;"
@@ -2738,7 +2728,15 @@
                     <div
                         style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#f59e0b,transparent);">
                     </div>
-                    <div style="font-size:3rem;margin-bottom:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline><text x="12" y="11" font-size="6" text-anchor="middle" font-family="sans-serif" fill="currentColor" stroke="none">1</text></svg></div>
+                    <div style="font-size:3rem;margin-bottom:16px;"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align: middle; display: inline-block;">
+                            <circle cx="12" cy="8" r="7"></circle>
+                            <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline><text x="12" y="11"
+                                font-size="6" text-anchor="middle" font-family="sans-serif" fill="currentColor"
+                                stroke="none">1</text>
+                        </svg></div>
                     <div
                         style="font-family:'Orbitron',monospace;font-size:11px;letter-spacing:3px;color:var(--sec);text-transform:uppercase;margin-bottom:8px;">
                         First Place</div>
@@ -2770,7 +2768,15 @@
                     <div
                         style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#a78bfa,transparent);">
                     </div>
-                    <div style="font-size:3rem;margin-bottom:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline><text x="12" y="11" font-size="6" text-anchor="middle" font-family="sans-serif" fill="currentColor" stroke="none">2</text></svg></div>
+                    <div style="font-size:3rem;margin-bottom:16px;"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align: middle; display: inline-block;">
+                            <circle cx="12" cy="8" r="7"></circle>
+                            <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline><text x="12" y="11"
+                                font-size="6" text-anchor="middle" font-family="sans-serif" fill="currentColor"
+                                stroke="none">2</text>
+                        </svg></div>
                     <div
                         style="font-family:'Orbitron',monospace;font-size:11px;letter-spacing:3px;color:var(--pri);text-transform:uppercase;margin-bottom:8px;">
                         Second Place</div>
@@ -2802,7 +2808,15 @@
                     <div
                         style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#34d399,transparent);">
                     </div>
-                    <div style="font-size:3rem;margin-bottom:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline><text x="12" y="11" font-size="6" text-anchor="middle" font-family="sans-serif" fill="currentColor" stroke="none">3</text></svg></div>
+                    <div style="font-size:3rem;margin-bottom:16px;"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align: middle; display: inline-block;">
+                            <circle cx="12" cy="8" r="7"></circle>
+                            <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline><text x="12" y="11"
+                                font-size="6" text-anchor="middle" font-family="sans-serif" fill="currentColor"
+                                stroke="none">3</text>
+                        </svg></div>
                     <div
                         style="font-family:'Orbitron',monospace;font-size:11px;letter-spacing:3px;color:#34d399;text-transform:uppercase;margin-bottom:8px;">
                         Third Place</div>
@@ -2905,7 +2919,13 @@
                 <!-- 1. Website Team -->
                 <div class="team-card" onclick="openTeamModal('website')"
                     style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="2" y1="20" x2="22" y2="20"></line></svg></div>
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align: middle; display: inline-block;">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="2" y1="20" x2="22" y2="20"></line>
+                        </svg></div>
                     <h3
                         style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--pri); margin-bottom: 8px;">
                         Website Team</h3>
@@ -2915,7 +2935,18 @@
                 <!-- 2. Design Team -->
                 <div class="team-card" onclick="openTeamModal('design')"
                     style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><circle cx="13.5" cy="5.5" r=".5"></circle><circle cx="17.5" cy="10.5" r=".5"></circle><circle cx="8.5" cy="7.5" r=".5"></circle><circle cx="6.5" cy="12.5" r=".5"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg></div>
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align: middle; display: inline-block;">
+                            <circle cx="13.5" cy="5.5" r=".5"></circle>
+                            <circle cx="17.5" cy="10.5" r=".5"></circle>
+                            <circle cx="8.5" cy="7.5" r=".5"></circle>
+                            <circle cx="6.5" cy="12.5" r=".5"></circle>
+                            <path
+                                d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z">
+                            </path>
+                        </svg></div>
                     <h3
                         style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--sec); margin-bottom: 8px;">
                         Design Team</h3>
@@ -2925,7 +2956,13 @@
                 <!-- 3. Registration Team -->
                 <div class="team-card" onclick="openTeamModal('registration')"
                     style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg></div>
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align: middle; display: inline-block;">
+                            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                        </svg></div>
                     <h3
                         style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--pri); margin-bottom: 8px;">
                         Registration Team</h3>
@@ -2935,7 +2972,15 @@
                 <!-- 4. Technical Team  -->
                 <div class="team-card" onclick="openTeamModal('technical')"
                     style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></div>
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align: middle; display: inline-block;">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path
+                                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                            </path>
+                        </svg></div>
                     <h3
                         style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--sec); margin-bottom: 8px;">
                         Technical Team </h3>
@@ -2945,7 +2990,13 @@
                 <!-- 5. Student Mentors -->
                 <div class="team-card" onclick="openTeamModal('mentors')"
                     style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg></div>
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align: middle; display: inline-block;">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                            <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                        </svg></div>
                     <h3
                         style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--pri); margin-bottom: 8px;">
                         Student Mentors</h3>
@@ -2955,7 +3006,19 @@
                 <!-- 6. Marketing -->
                 <div class="team-card" onclick="openTeamModal('marketing')"
                     style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg></div>
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align: middle; display: inline-block;">
+                            <path
+                                d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z">
+                            </path>
+                            <path
+                                d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z">
+                            </path>
+                            <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+                            <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+                        </svg></div>
                     <h3
                         style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--sec); margin-bottom: 8px;">
                         Marketing</h3>
@@ -2965,7 +3028,15 @@
                 <!-- 7. Sponsorship -->
                 <div class="team-card" onclick="openTeamModal('sponsorship')"
                     style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M17 14A5 5 0 0 0 7 14v1a3 3 0 0 0 3 3h4a3 3 0 0 0 3-3v-1Z"></path><path d="M8 8V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4"></path><path d="M22 14v1a3 3 0 0 1-3 3h-2"></path><path d="M2 14v1a3 3 0 0 0 3 3h2"></path></svg></div>
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align: middle; display: inline-block;">
+                            <path d="M17 14A5 5 0 0 0 7 14v1a3 3 0 0 0 3 3h4a3 3 0 0 0 3-3v-1Z"></path>
+                            <path d="M8 8V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4"></path>
+                            <path d="M22 14v1a3 3 0 0 1-3 3h-2"></path>
+                            <path d="M2 14v1a3 3 0 0 0 3 3h2"></path>
+                        </svg></div>
                     <h3
                         style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--pri); margin-bottom: 8px;">
                         Sponsorship</h3>
@@ -2975,7 +3046,18 @@
                 <!-- 8. Judging Panel -->
                 <div class="team-card" onclick="openTeamModal('judging')"
                     style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="m12 3 4 5H8z"></path><line x1="12" y1="8" x2="12" y2="21"></line><line x1="2" y1="21" x2="22" y2="21"></line><path d="m5 16-3-3"></path><path d="m19 16 3-3"></path><path d="M7 16a5 5 0 0 0-5-5"></path><path d="M17 16a5 5 0 0 1 5-5"></path></svg></div>
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align: middle; display: inline-block;">
+                            <path d="m12 3 4 5H8z"></path>
+                            <line x1="12" y1="8" x2="12" y2="21"></line>
+                            <line x1="2" y1="21" x2="22" y2="21"></line>
+                            <path d="m5 16-3-3"></path>
+                            <path d="m19 16 3-3"></path>
+                            <path d="M7 16a5 5 0 0 0-5-5"></path>
+                            <path d="M17 16a5 5 0 0 1 5-5"></path>
+                        </svg></div>
                     <h3
                         style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--sec); margin-bottom: 8px;">
                         Judging Panel</h3>
@@ -2985,7 +3067,13 @@
                 <!-- 9. Finance -->
                 <div class="team-card" onclick="openTeamModal('finance')"
                     style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align: middle; display: inline-block;">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg></div>
                     <h3
                         style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--pri); margin-bottom: 8px;">
                         Finance</h3>
@@ -2995,7 +3083,22 @@
                 <!-- 10. Food and Venue -->
                 <div class="team-card" onclick="openTeamModal('food_venue')"
                     style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M12 6h.01"></path><path d="M12 10h.01"></path><path d="M12 14h.01"></path><path d="M16 10h.01"></path><path d="M16 14h.01"></path><path d="M8 10h.01"></path><path d="M8 14h.01"></path></svg></div>
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align: middle; display: inline-block;">
+                            <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                        </svg></div>
                     <h3
                         style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--sec); margin-bottom: 8px;">
                         Food & Venue</h3>
@@ -3409,7 +3512,13 @@
 
                     <div
                         style="display: flex; gap: 15px; margin-bottom: 25px; color: rgba(220, 210, 255, 0.7); font-size: 0.95rem;">
-                        <span style="font-size: 1.2rem; color: var(--sec);"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
+                        <span style="font-size: 1.2rem; color: var(--sec);"><svg xmlns="http://www.w3.org/2000/svg"
+                                width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                style="vertical-align: middle; display: inline-block;">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg></span>
                         <div>
                             <strong
                                 style="color: #fff; font-family: 'Chakra Petch', sans-serif; font-size: 1.1rem;">Agni
@@ -3523,7 +3632,7 @@
             if (cur && ring) {
                 let mx = 0, my = 0, rx = 0, ry = 0;
                 document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-                (function cl() { rx += (mx - rx) * .12; ry += (my - ry) * .12; cur.style.left = (mx - 5) + 'px'; cur.style.top = (my - 5) + 'px'; ring.style.left = (rx - 17) + 'px'; ring.style.top = (ry - 17) + 'px'; requestAnimationFrame(cl); })();
+                (function cl() { rx += (mx - rx) * .08; ry += (my - ry) * .08; cur.style.left = (mx - 5) + 'px'; cur.style.top = (my - 5) + 'px'; ring.style.left = (rx - 17) + 'px'; ring.style.top = (ry - 17) + 'px'; requestAnimationFrame(cl); })();
             }
 
             // Stats Fetching
@@ -3779,8 +3888,8 @@
 
         <!-- ══ CENTERED PROBLEM MODAL ══ -->
         <div id="ps-modal-overlay" onclick="closePsModal(event)" style="
-        display:none; position:fixed; inset:0; z-index:9000;
-        background:rgba(7,5,15,0.88); backdrop-filter:blur(16px);
+        display:none; position:fixed; inset:0; z-index:20000;
+        background:rgba(7,5,15,0.92); backdrop-filter:blur(16px);
         justify-content:center; align-items:center; padding:24px;
         opacity:0; transition:opacity .3s ease;">
             <div id="ps-modal-box" onclick="event.stopPropagation()" style="
