@@ -13,11 +13,9 @@ auth_bp = Blueprint('auth', __name__)
 # ── Homepage ──────────────────────────────────────────────────────────────────
 @auth_bp.route('/')
 def index():
-    try:
-        problems = ProblemStatement.query.all()
-        return render_template('index.html', problems=problems)
-    except Exception:
-        return render_template('index.html', problems=[])
+    from models import ProblemStatement
+    problems = ProblemStatement.query.all()
+    return render_template('index.html', problems=problems)
 
 @auth_bp.app_errorhandler(500)
 def internal_error(error):

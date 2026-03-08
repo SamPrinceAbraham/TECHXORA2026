@@ -46,8 +46,30 @@ def create_app():
     @app.route('/init-db')
     def init_db():
         try:
+            # Create tables
             db.create_all()
-            return "Database initialized successfully!", 200
+            
+            # Seed Problem Statements if empty
+            from models import ProblemStatement
+            if ProblemStatement.query.count() == 0:
+                samples = [
+                    {"title": "Smart Campus Navigation", "desc": "AR-based indoor navigation for large campus buildings.", "domain": "EdTech"},
+                    {"title": "AI Health Assistant", "desc": "Predictive analysis of health data using wearable sensors.", "domain": "HealthTech"},
+                    {"title": "Sustainable Supply Chain", "desc": "Blockchain-based tracking of eco-friendly materials.", "domain": "Climate & Sustainability Tech"},
+                    {"title": "Zero-Day Exploit Detector", "desc": "ML-driven behavior analysis for cybersecurity.", "domain": "Cybersecurity"},
+                    {"title": "Skill-Bridge Platform", "desc": "Connecting rural students with industry mentors.", "domain": "Student Innovation"}
+                ]
+                for s in samples:
+                    db.session.add(ProblemStatement(
+                        problem_title=s["title"],
+                        description=s["desc"],
+                        domain=s["domain"],
+                        max_teams=7
+                    ))
+                db.session.commit()
+                return "Database initialized and seeded with problem statements!", 200
+            
+            return "Database tables verified (already exists).", 200
         except Exception as e:
             import traceback
             error_details = traceback.format_exc()
