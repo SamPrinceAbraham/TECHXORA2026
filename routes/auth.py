@@ -159,7 +159,7 @@ def register_step2():
     
     # Upload to Supabase
     # Ensure bucket 'proofs' exists or use a generic one
-    remote_path = f"proofs/{supabase_filename}"
+    remote_path = supabase_filename
     public_url = upload_file("proofs", temp_path, remote_path) # Using 'proofs' bucket
     
     # Clean up temporary file

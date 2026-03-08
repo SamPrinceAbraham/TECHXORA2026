@@ -11,6 +11,23 @@ supabase: Client = None
 if url and key:
     supabase = create_client(url, key)
 
+def ensure_bucket(bucket_name):
+    """
+    Ensure a bucket exists in Supabase.
+    """
+    if not supabase:
+        return
+    try:
+        # Check if bucket exists
+        buckets = supabase.storage.list_buckets()
+        exists = any(b.name == bucket_name for b in buckets)
+        if not exists:
+            # Create bucket if it doesn't exist (public=True)
+            supabase.storage.create_bucket(bucket_name, options={"public": True})
+            print(f"Bucket '{bucket_name}' created successfully.")
+    except Exception as e:
+        print(f"Error ensuring bucket '{bucket_name}': {e}")
+
 def upload_file(bucket_name, file_path, remote_path):
     """
     Upload a local file to a Supabase bucket.
@@ -20,8 +37,10 @@ def upload_file(bucket_name, file_path, remote_path):
         print("Supabase client not initialized. Check SUPABASE_URL and SUPABASE_KEY.")
         return None
 
+    ensure_bucket(bucket_name)
+
     with open(file_path, 'rb') as f:
-        response = supabase.storage.from_(bucket_name).upload(
+        supabase.storage.from_(bucket_name).upload(
             path=remote_path,
             file=f,
             file_options={"cache-control": "3600", "upsert": "true"}
@@ -37,6 +56,8 @@ def upload_bytes(bucket_name, file_bytes, remote_path, content_type="application
     """
     if not supabase:
         return None
+
+    ensure_bucket(bucket_name)
 
     supabase.storage.from_(bucket_name).upload(
         path=remote_path,
