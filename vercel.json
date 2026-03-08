@@ -32,18 +32,12 @@
             "dest": "/$1"
         },
         {
-            "src": "/(admin|volunteer|participant|api|register|login|logout|id-card|test-email)(.*)",
+            "src": "/(admin|volunteer|participant|api|register|login|logout|id-card|test-email|init-db)(.*)",
             "dest": "app.py"
         },
         {
             "src": "/",
             "dest": "app.py"
         }
-    ],
-    "env": {
-        "SECRET_KEY": "@secret_key",
-        "DATABASE_URL": "@database_url",
-        "SUPABASE_URL": "@supabase_url",
-        "SUPABASE_KEY": "@supabase_key"
-    }
+    ]
 }
