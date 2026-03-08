@@ -1321,6 +1321,40 @@ tr:last-child td {
   }
 }
 
+/* ── Layout Helpers ───────────────────────────────────────────── */
+.layout-admin-dash {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.layout-admin-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.layout-part-dash {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.layout-part-status {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.layout-vol-dash {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 24px;
+  max-width: 1100px;
+}
+
 /* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 768px) {
   :root {
@@ -1348,6 +1382,11 @@ tr:last-child td {
     padding: 16px;
   }
 
+  .layout-admin-dash,
+  .layout-admin-actions,
+  .layout-part-dash,
+  .layout-part-status,
+  .layout-vol-dash,
   .dash-grid,
   .stats-grid {
     grid-template-columns: 1fr;

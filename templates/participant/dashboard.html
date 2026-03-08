@@ -3,7 +3,7 @@
 {% block page_title %}🎫 My Dashboard{% endblock %}
 
 {% block content %}
-<div style="display:grid;grid-template-columns:340px 1fr;gap:24px;align-items:start">
+<div class="layout-part-dash">
 
     <!-- Left Column: QR + Status -->
     <div style="display:flex;flex-direction:column;gap:16px">
@@ -27,7 +27,7 @@
         </div>
 
         <!-- Status Cards -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="layout-part-status">
             <div
                 style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center">
                 <div style="font-size:1.5rem;margin-bottom:6px">

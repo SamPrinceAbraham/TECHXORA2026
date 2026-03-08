@@ -1345,7 +1345,11 @@ tbody tr:hover td {
 
   nav {
     padding: 0 1rem;
-    overflow-x: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   .nav-logo {
@@ -1354,7 +1358,8 @@ tbody tr:hover td {
   }
 
   .nav-tabs {
-    gap: 0;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .tab-btn {

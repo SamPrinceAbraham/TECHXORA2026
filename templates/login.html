@@ -17,7 +17,7 @@
 
         <!-- Role Switcher -->
         <div
-            style="display:flex;gap:4px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:10px;padding:4px;margin-bottom:24px">
+            style="display:flex;flex-wrap:wrap;gap:4px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:10px;padding:4px;margin-bottom:24px">
             {% for r, label, icon in [('participant','Participant',''), ('volunteer','Volunteer',''),
             ('admin','Admin','🛡️')] %}
             <a href="{{ url_for('auth.login', role=r) }}"
