@@ -59,9 +59,12 @@ def upload_bytes(bucket_name, file_bytes, remote_path, content_type="application
 
     ensure_bucket(bucket_name)
 
+    # If file_bytes is a BytesIO object, get the raw bytes
+    data = file_bytes.getvalue() if hasattr(file_bytes, 'getvalue') else file_bytes
+
     supabase.storage.from_(bucket_name).upload(
         path=remote_path,
-        file=file_bytes,
+        file=data,
         file_options={"cache-control": "3600", "upsert": "true", "content-type": content_type}
     )
     
