@@ -28,15 +28,7 @@
             "dest": "/static/$1"
         },
         {
-            "src": "/(app\\.js|style\\.css|index\\.html)",
-            "dest": "/$1"
-        },
-        {
-            "src": "/(admin|volunteer|participant|api|register|login|logout|id-card|test-email|init-db)(.*)",
-            "dest": "app.py"
-        },
-        {
-            "src": "/",
+            "src": "/(.*)",
             "dest": "app.py"
         }
     ]
