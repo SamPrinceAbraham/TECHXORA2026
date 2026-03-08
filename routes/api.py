@@ -55,22 +55,26 @@ def problems_api():
     all_ps = ProblemStatement.query.order_by(ProblemStatement.domain, ProblemStatement.id).all()
     domains = {}
     counters = {}
+    # Map full names to codes for the frontend to match
+    NAME_TO_CODE = {v: k for k, v in DOMAIN_CODES.items()} # Wait, DOMAIN_CODES is Actually {Full: Short}
+    # Let's check models.py again. 
+    # DOMAIN_CODES = {'Climate & Sustainability Tech': 'CS', ...}
+    # So it's already {Full: Short}. Perfect.
+
     for p in all_ps:
-        code = p.domain
+        full_domain = p.domain or 'Unknown'
+        code = DOMAIN_CODES.get(full_domain, full_domain) # Fallback to full if not found
+        
         counters[code] = counters.get(code, 0) + 1
         prob_id = f"TX-{code}-{counters[code]:02d}"
         
-        # Add a friendly name for the domain if needed, or just use code
-        domain_name_map = {
-            'CS': 'Climate & Sustainability Tech',
-            'HT': 'HealthTech',
-            'ET': 'EdTech',
-            'CY': 'Cybersecurity',
-            'SI': 'Student Innovation'
-        }
-        
         if code not in domains:
-            domains[code] = {'domain': domain_name_map.get(code, code), 'code': code, 'problems': []}
+            domains[code] = {
+                'domain': full_domain, 
+                'code': code, 
+                'problems': []
+            }
+        
         domains[code]['problems'].append({
             'id': p.id,
             'prob_id': prob_id,
