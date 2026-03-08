@@ -1,0 +1,1 @@
+"# TECHXORA2026"  initgit add README.mdgit commit -m "first commit"git branch -M maingit remote add origin https://github.com/SamPrinceAbraham/TECHXORA2026.gitgit push -u origin main
