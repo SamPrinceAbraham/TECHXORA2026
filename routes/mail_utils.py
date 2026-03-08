@@ -113,10 +113,30 @@ def test_smtp_connection():
 def send_registration_received_email(team, participants, async_send=True):
     leader_email = participants[0].email if participants else None
     if not leader_email: return False
+    
     subject = f"Registration Received – TECHXORA '26: {team.team_name}"
-    body = f"Thank you for registering {team.team_name}.\n\nDomain: {team.domain}\nParticipants:\n"
-    for p in participants: body += f" - {p.name}\n"
-    body += "\nID cards will be sent once verified.\n\nBest regards,\nOrganizing Committee"
+    
+    parts_list = "\n".join([f"- {p.name}" for p in participants])
+    
+    body = f"""Dear Team Leader,
+
+Thank you for registering your team "{team.team_name}" for TECHXORA 26.
+
+We have received your registration details and proof of payment. Our administration team is currently verifying your payment.
+
+Domain: {team.domain}
+
+Participants:
+{parts_list}
+
+Please note: Your official ID cards will be sent to this email address once your payment has been verified. This process typically takes few hours.
+
+If you have any questions, please reply to this email.
+
+Best regards,
+Organizing Committee
+TECHXORA 26"""
+
     if async_send: _send_email_async(leader_email, subject, body)
     else: _send_email(leader_email, subject, body)
     return True
@@ -125,7 +145,27 @@ send_registration_email = send_registration_received_email
 
 def send_id_card_email(participant_email, participant_name, unique_id, pdf_url, password=None, team_name=None, domain=None, async_send=True):
     subject = f"Your ID Card & Registration Confirmed – TECHXORA '26"
-    body = f"Dear {participant_name},\n\nYour registration for TECHXORA '26 is confirmed!\n\nID: {unique_id}\nPass: {password}\n\nPDF attached.\n\nBest regards,\nOrganizing Committee"
+    
+    body = f"""Dear {participant_name},
+
+Your payment for team "{team_name or 'Your Team'}" has been verified.
+Your registration for TECHXORA '26 is confirmed!
+
+Login Credentials
+  Participant ID : {unique_id}
+  Password       : {password or '----'}
+
+Your PDF ID card is attached. Please carry it to the venue.
+
+Event Details
+  Date  : March 18-19, 2026
+  Venue : Agni College of Technology, OMR, Chennai
+  Domain: {domain or 'N/A'}
+
+Best regards,
+Organizing Committee – TECHXORA '26
+techxora26.agnihackathon@gmail.com"""
+
     pdfs = [pdf_url] if pdf_url else []
     if async_send: _send_email_async(participant_email, subject, body, pdf_paths=pdfs)
     else: _send_email(participant_email, subject, body, pdf_paths=pdfs)
