@@ -769,11 +769,11 @@
 
         if (domSel && probSel) {
             domSel.addEventListener('change', function () {
-                const selectedDomain = this.value; // e.g. "HealthTech"
+                const selectedDomain = (this.value || '').replace(/\s/g, '').toLowerCase();
                 probSel.value = '';
                 probOpts.forEach(o => {
-                    const optionDomain = o.getAttribute('data-domain');
-                    // Direct match now because database and select use same full names
+                    const optionDomain = (o.getAttribute('data-domain') || '').replace(/\s/g, '').toLowerCase();
+                    // Robust match: ignore spaces and case
                     o.style.display = (optionDomain === selectedDomain) ? '' : 'none';
                 });
             });
