@@ -13,9 +13,20 @@ auth_bp = Blueprint('auth', __name__)
 # ── Homepage ──────────────────────────────────────────────────────────────────
 @auth_bp.route('/')
 def index():
-    problems = ProblemStatement.query.all()
-    return render_template('index.html', problems=problems)
+    try:
+        problems = ProblemStatement.query.all()
+        return render_template('index.html', problems=problems)
+    except Exception:
+        return render_template('index.html', problems=[])
 
+@auth_bp.app_errorhandler(500)
+def internal_error(error):
+    import traceback
+    return f"<pre>{traceback.format_exc()}</pre>", 500
+
+@auth_bp.route('/health')
+def health_check():
+    return "OK", 200
 
 # ── Register Page ──────────────────────────────────────────────────────────────
 @auth_bp.route('/register')

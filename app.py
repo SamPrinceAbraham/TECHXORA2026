@@ -18,13 +18,20 @@ def create_app():
     CORS(app)  # Enable CORS for all routes
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'techxora26-dev-key')
     
-    # Use Supabase PostgreSQL or fallback to local SQLite for dev
+    # Use Supabase PostgreSQL
     database_url = os.getenv('DATABASE_URL')
-    if database_url and database_url.startswith("postgres://"):
-        database_url = database_url.replace("postgres://", "postgresql://", 1)
-    
+    if database_url:
+        # Standardize for SQLAlchemy
+        if database_url.startswith("postgres://"):
+            database_url = database_url.replace("postgres://", "postgresql://", 1)
+        
+        # Add connection timeout and pool settings for serverless
+        if "?" not in database_url:
+            database_url += "?sslmode=require&connect_timeout=10"
+        elif "sslmode" not in database_url:
+            database_url += "&sslmode=require"
+            
     app.config['SQLALCHEMY_DATABASE_URI'] = database_url or 'sqlite:///techxora26.db'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['ADMIN_PASSWORD'] = os.getenv('ADMIN_PASSWORD', 'admin123')
     app.config['VOLUNTEER_PASSWORD'] = os.getenv('VOLUNTEER_PASSWORD', 'volunteer123')
 
@@ -42,7 +49,14 @@ def create_app():
             db.create_all()
             return "Database initialized successfully!", 200
         except Exception as e:
+            import traceback
+            error_details = traceback.format_exc()
+            print(f"ERROR during init-db: {error_details}")
             return f"Error: {str(e)}", 500
+
+    @app.route('/health')
+    def health():
+        return "OK", 200
 
     return app
 
