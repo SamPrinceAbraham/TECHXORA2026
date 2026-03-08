@@ -1,13 +1,14 @@
-"""PDF ID Card generator using reportlab - Stylish TECHXORA edition."""
 import os
+import io
 from reportlab.lib.pagesizes import A6
 from reportlab.lib import colors
 from reportlab.lib.units import mm
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
+from supabase_manager import upload_bytes
+import requests
 
-
-# TECHXORA brand colours
+# ... (colors and constants remain the same)
 DARK_BG  = colors.HexColor('#050810')
 DARK_BG2 = colors.HexColor('#0a0f1e')
 CYAN     = colors.HexColor('#00f5ff')
@@ -19,21 +20,19 @@ DEEP_PUR = colors.HexColor('#1e1b4b')
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 def _get_asset(rel_path):
     """Return absolute path to a static asset, or None if missing."""
     p = os.path.join(BASE_DIR, 'static', *rel_path.split('/'))
     return p if os.path.exists(p) else None
 
-
-def generate_id_card(participant, output_path: str) -> str:
+def generate_id_card(participant, output_path=None) -> str:
     """
-    Generate a stylish PDF ID card for a participant.
+    Generate a stylish PDF ID card for a participant and upload to Supabase.
+    Returns the public URL of the PDF.
     """
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
-
+    buf = io.BytesIO()
     W, H = A6  # 105 × 148 mm  ≈  297 × 420 pts
-    c = canvas.Canvas(output_path, pagesize=A6)
+    c = canvas.Canvas(buf, pagesize=A6)
 
     # ── Full dark gradient background ─────────────────────────────────────────
     c.setFillColor(DARK_BG)
@@ -54,12 +53,13 @@ def generate_id_card(participant, output_path: str) -> str:
     c.rect(0, H - 25*mm, W, 1.2*mm, fill=1, stroke=0)
 
     # ── Logos: college left, hackathon right — same size ─────────────────────
+    # Standard static assets can still be local if bundled with Vercel
     clg_logo  = _get_asset('logos/act.png')
     hack_logo = _get_asset('logos/techXora.png')
 
-    logo_size = 19*mm          # bigger and more visible
-    logo_pad  = 2*mm           # tight margin from edges
-    logo_y    = H - 23*mm      # top of logo box
+    logo_size = 19*mm
+    logo_pad  = 2*mm
+    logo_y    = H - 23*mm
 
     if clg_logo:
         try:
@@ -78,7 +78,7 @@ def generate_id_card(participant, output_path: str) -> str:
         except Exception:
             pass
 
-    # ── College + event text — centered between two logos ────────────────────
+    # ── College + event text ──
     c.setFillColor(WHITE)
     c.setFont('Helvetica-Bold', 8.5)
     c.drawCentredString(W / 2, H - 5.5*mm, 'AGNI COLLEGE OF TECHNOLOGY')
@@ -91,7 +91,7 @@ def generate_id_card(participant, output_path: str) -> str:
     c.setFont('Helvetica-Bold', 12)
     c.drawCentredString(W / 2, H - 19*mm, "TECHXORA '26")
 
-    # ── Semi-transparent hackathon watermark (center) ─────────────────────────
+    # ── Watermark ──
     if hack_logo:
         try:
             c.saveState()
@@ -105,42 +105,41 @@ def generate_id_card(participant, output_path: str) -> str:
         except Exception:
             pass
 
-    # ── PARTICIPANT tag ────────────────────────────────────────────────────────
+    # ── Tag ──
     c.setFillColor(VIOLET)
     c.setFont('Helvetica-Bold', 6)
     c.drawCentredString(W / 2, H - 23*mm, '— PARTICIPANT —')
 
-    # ── Participant Name ──────────────────────────────────────────────────────
+    # ── Name ──
     c.setFillColor(WHITE)
     c.setFont('Helvetica-Bold', 15)
     name_y = H - 31*mm
     name = participant.name.upper()
-    # Shorten if too long
     if len(name) > 18:
         c.setFont('Helvetica-Bold', 11)
     c.drawCentredString(W / 2, name_y, name)
 
-    # Underline below name (cyan)
     c.setStrokeColor(CYAN)
     c.setLineWidth(0.8)
     c.line(10*mm, name_y - 2*mm, W - 10*mm, name_y - 2*mm)
 
-    # ── QR Code ───────────────────────────────────────────────────────────────
+    # ── QR Code from URL ──
     qr_size = 42*mm
     qr_x = (W - qr_size) / 2
     qr_y = name_y - 9*mm - qr_size
 
-    if participant.qr_path and hasattr(participant, '_qr_abs'):
-        abs_qr = participant._qr_abs
-        if abs_qr and os.path.exists(abs_qr):
-            try:
-                c.drawImage(ImageReader(abs_qr), qr_x, qr_y,
-                            width=qr_size, height=qr_size,
+    if participant.qr_path:
+        try:
+            # QR is now a URL
+            resp = requests.get(participant.qr_path, stream=True)
+            if resp.status_code == 200:
+                qr_img = ImageReader(io.BytesIO(resp.content))
+                c.drawImage(qr_img, qr_x, qr_y, width=qr_size, height=qr_size,
                             preserveAspectRatio=True, mask='auto')
-            except Exception:
-                pass
+        except Exception as e:
+            print(f"Error drawing QR in PDF: {e}")
 
-    # QR glow border (double border effect)
+    # QR border
     c.setStrokeColor(VIOLET)
     c.setLineWidth(0.4)
     c.rect(qr_x - 2*mm, qr_y - 2*mm, qr_size + 4*mm, qr_size + 4*mm, fill=0, stroke=1)
@@ -148,10 +147,8 @@ def generate_id_card(participant, output_path: str) -> str:
     c.setLineWidth(1)
     c.rect(qr_x - 0.8*mm, qr_y - 0.8*mm, qr_size + 1.6*mm, qr_size + 1.6*mm, fill=0, stroke=1)
 
-    # ── Participant ID ─────────────────────────────────────────────────────────
+    # ── ID Pill ──
     id_y = qr_y - 9*mm
-
-    # ID pill background
     pill_w = 60*mm
     pill_h = 7*mm
     pill_x = (W - pill_w) / 2
@@ -165,7 +162,7 @@ def generate_id_card(participant, output_path: str) -> str:
     c.setFont('Helvetica-Bold', 13)
     c.drawCentredString(W / 2, id_y + 1*mm, participant.unique_id)
 
-    # ── Team & Domain info row ────────────────────────────────────────────────
+    # ── Team Info ──
     info_y = id_y - 9*mm
     team_name = (participant.team_obj.team_name or "TEAM").upper()
     domain = (participant.team_obj.domain or "").upper()
@@ -178,21 +175,17 @@ def generate_id_card(participant, output_path: str) -> str:
     c.setFont('Helvetica', 7)
     c.drawCentredString(W / 2, info_y - 5*mm, f"DOMAIN: {domain}")
 
-    # ── Password ──────────────────────────────────────────────────────────────
+    # ── Password ──
     pwd_y = info_y - 11*mm
     c.setFillColor(AMBER)
     c.setFont('Helvetica-Bold', 11)
     c.drawCentredString(W / 2, pwd_y, f"PASS: {participant.password or '----'}")
 
-    # ── Bottom bar ────────────────────────────────────────────────────────────
-    c.setFillColor(DEEP_PUR)
-    c.rect(0, 0, W, 5.5*mm, fill=1, stroke=0)
-    c.setFillColor(CYAN)
-    c.rect(0, 5.5*mm, W, 0.5*mm, fill=1, stroke=0)
-
-    c.setFillColor(colors.HexColor('#c4b5fd'))
-    c.setFont('Helvetica', 5)
-    c.drawCentredString(W / 2, 2*mm, "TECHXORA '26  |  Agni College of Technology  |  techxora26.agnihackathon@gmail.com")
-
     c.save()
-    return output_path
+    buf.seek(0)
+    
+    # Upload to Supabase Storage
+    remote_path = f"{participant.unique_id}.pdf"
+    public_url = upload_bytes("id_cards", buf, remote_path, content_type="application/pdf")
+    
+    return public_url

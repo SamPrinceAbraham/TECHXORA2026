@@ -9,8 +9,10 @@ from flask import (Blueprint, render_template, request, redirect,
 from models import db, Team, Participant, Payment, Log, Announcement
 from qr_utils import generate_qr
 from routes.pdf_utils import generate_id_card
-from routes.mail_utils import send_team_confirmation_email, send_individual_confirmation_email, test_smtp_connection
-
+from routes.mail_utils import (
+    send_registration_email, send_team_confirmation_email,
+    send_announcement_email, send_id_card_email
+)
 admin_bp = Blueprint('admin', __name__)
 
 
@@ -222,25 +224,21 @@ def resend_email(pay_id):
         return redirect(url_for('admin.payments'))
 
     team = payment.team_obj
-    participants = team.members.all()
-
-    qr_dir = os.path.join(current_app.static_folder, 'qrcodes')
-    cards_dir = os.path.join(current_app.static_folder, 'id_cards')
-    os.makedirs(qr_dir, exist_ok=True)
-    os.makedirs(cards_dir, exist_ok=True)
-
-    pdf_paths = []
-    for p in participants:
-        if not p.qr_path:
-            p.qr_path = generate_qr(p.unique_id, qr_dir)
-        pdf_path = os.path.join(cards_dir, f"{p.unique_id}.pdf")
-        generate_id_card(p, pdf_path)
-        pdf_paths.append(pdf_path)
+    # Generate ID Cards (Uploads to Supabase)
+    for p in team.members:
+        qr_url = generate_qr(p.unique_id, None)
+        p.qr_path = qr_url
+        
+        pdf_url = generate_id_card(p)
+        # We could store pdf_url in a new field if needed, or just send it via email
+        
+        # Send email
+        try:
+            send_id_card_email(p.email, p.name, p.unique_id, pdf_url)
+        except Exception as e:
+            print(f"Error sending email to {p.email}: {e}")
 
     db.session.commit()
-
-    # Re-send in background threads with full retry logic
-    send_team_confirmation_email(team, participants, pdf_paths, async_send=True)
 
     flash(f'Resending ID card emails to all members of "{team.team_name}" in background. Check server logs for delivery status.', 'success')
     return redirect(url_for('admin.payments'))

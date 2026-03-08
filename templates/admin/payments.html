@@ -63,7 +63,7 @@
                 " onclick="this.style.display='none'">
                             <div style="max-width:90vw;max-height:90vh;text-align:center"
                                 onclick="event.stopPropagation()">
-                                <img src="{{ url_for('static', filename=pay.proof_image_path) }}"
+                                <img src="{% if pay.proof_image_path.startswith('http') %}{{ pay.proof_image_path }}{% else %}{{ url_for('static', filename=pay.proof_image_path) }}{% endif %}"
                                     style="max-width:100%;max-height:80vh;border-radius:8px;border:1px solid var(--glass-border)"
                                     alt="Payment Proof">
                                 <div style="margin-top:12px">
@@ -79,22 +79,50 @@
                     </td>
                     <td>
                         {% if pay.status == 'verified' %}
-                        <span class="badge badge-green"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polyline points="20 6 9 17 4 12"></polyline></svg> Verified</span>
+                        <span class="badge badge-green"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em"
+                                height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                style="vertical-align: middle; display: inline-block;">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> Verified</span>
                         {% elif pay.status == 'rejected' %}
-                        <span class="badge badge-red"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> Rejected</span>
+                        <span class="badge badge-red"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em"
+                                height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                style="vertical-align: middle; display: inline-block;">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg> Rejected</span>
                         {% else %}
-                        <span class="badge badge-yellow"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg> Pending</span>
+                        <span class="badge badge-yellow"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em"
+                                height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                style="vertical-align: middle; display: inline-block;">
+                                <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+                                <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+                            </svg> Pending</span>
                         {% endif %}
                     </td>
                     <td>
                         {% if pay.status == 'pending' %}
                         <form method="POST" action="{{ url_for('admin.verify_payment', pay_id=pay.id) }}"
                             style="display:inline">
-                            <button type="submit" class="btn btn-primary btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polyline points="20 6 9 17 4 12"></polyline></svg> Verify</button>
+                            <button type="submit" class="btn btn-primary btn-sm"><svg xmlns="http://www.w3.org/2000/svg"
+                                    width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    style="vertical-align: middle; display: inline-block;">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg> Verify</button>
                         </form>
                         <form method="POST" action="{{ url_for('admin.reject_payment', pay_id=pay.id) }}"
                             style="display:inline;margin-left:6px">
-                            <button type="submit" class="btn btn-danger btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> Reject</button>
+                            <button type="submit" class="btn btn-danger btn-sm"><svg xmlns="http://www.w3.org/2000/svg"
+                                    width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    style="vertical-align: middle; display: inline-block;">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg> Reject</button>
                         </form>
                         {% elif pay.status == 'verified' %}
                         <form method="POST" action="{{ url_for('admin.resend_email', pay_id=pay.id) }}"

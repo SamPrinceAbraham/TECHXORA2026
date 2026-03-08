@@ -4,7 +4,8 @@ from flask import (Blueprint, render_template, request, redirect,
                    url_for, session, flash, current_app, send_file)
 from models import db, Team, Participant, Payment, Log, DOMAIN_CODES, ProblemStatement
 from qr_utils import generate_qr
-from routes.mail_utils import send_registration_received_email
+from routes.mail_utils import send_registration_email, send_id_card_email
+from supabase_manager import upload_file
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -136,18 +137,43 @@ def register_step2():
         payment_status='pending',
     )
     db.session.add(team)
-    
+            
     # Increment problem team count
     problem.teams_selected += 1
     db.session.add(problem)
     
-    db.session.flush()
+    db.session.flush() # Flush to get team.id
+
+    # Prepare file for Supabase upload
+    original_filename = proof_file.filename
+    ext = os.path.splitext(original_filename)[1].lower() or '.png'
+    # Create a unique filename for Supabase
+    supabase_filename = f"pay_{team.id}_{transaction_id}{ext}"
+    
+    # Save temporary file to upload
+    temp_dir = current_app.config.get('UPLOAD_TEMP_DIR', '/tmp')
+    os.makedirs(temp_dir, exist_ok=True)
+    temp_path = os.path.join(temp_dir, supabase_filename)
+    proof_file.save(temp_path)
+    
+    # Upload to Supabase
+    # Ensure bucket 'proofs' exists or use a generic one
+    remote_path = f"proofs/{supabase_filename}"
+    public_url = upload_file("proofs", temp_path, remote_path) # Using 'proofs' bucket
+    
+    # Clean up temporary file
+    os.remove(temp_path)
+
+    if not public_url:
+         flash('Upload failed. Please try again.', 'danger')
+         session['reg_pending'] = reg # Restore session if upload fails
+         return redirect(url_for('auth.payment_page'))
 
     # Create Payment record
     payment = Payment(
         team_id=team.id,
         transaction_id=transaction_id,
-        proof_image_path=proof_rel,
+        proof_image_path=public_url,
         status='pending',
     )
     db.session.add(payment)
@@ -179,8 +205,8 @@ def register_step2():
 
     db.session.commit()
 
-    # Send Registration Received Email
-    send_registration_received_email(team, new_participants)
+    # Send Registration Email
+    send_registration_email(team, [p for p in team.members])
 
     flash(f'Team "{reg["team_name"]}" registered! '
           f'Payment pending admin verification. An email has been sent to the team leader.', 'success')

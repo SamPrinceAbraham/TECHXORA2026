@@ -11,7 +11,7 @@
         <!-- QR Code Card -->
         <div class="qr-card">
             {% if participant.qr_path %}
-            <img src="{{ url_for('static', filename=participant.qr_path) }}" alt="Your QR Code" width="200"
+            <img src="{% if participant.qr_path.startswith('http') %}{{ participant.qr_path }}{% else %}{{ url_for('static', filename=participant.qr_path) }}{% endif %}" alt="Your QR Code" width="200"
                 height="200" />
             {% else %}
             <div

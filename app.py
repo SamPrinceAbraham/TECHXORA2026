@@ -8,13 +8,22 @@ from routes.volunteer import volunteer_bp
 from routes.participant import participant_bp
 from routes.api import api_bp
 
+from flask_cors import CORS
+
 load_dotenv()
 
 
 def create_app():
     app = Flask(__name__)
+    CORS(app)  # Enable CORS for all routes
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'techxora26-dev-key')
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///techxora26.db'
+    
+    # Use Supabase PostgreSQL or fallback to local SQLite for dev
+    database_url = os.getenv('DATABASE_URL')
+    if database_url and database_url.startswith("postgres://"):
+        database_url = database_url.replace("postgres://", "postgresql://", 1)
+    
+    app.config['SQLALCHEMY_DATABASE_URI'] = database_url or 'sqlite:///techxora26.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['ADMIN_PASSWORD'] = os.getenv('ADMIN_PASSWORD', 'admin123')
     app.config['VOLUNTEER_PASSWORD'] = os.getenv('VOLUNTEER_PASSWORD', 'volunteer123')
@@ -27,8 +36,13 @@ def create_app():
     app.register_blueprint(participant_bp, url_prefix='/participant')
     app.register_blueprint(api_bp, url_prefix='/api')
 
-    with app.app_context():
-        db.create_all()
+    @app.route('/init-db')
+    def init_db():
+        try:
+            db.create_all()
+            return "Database initialized successfully!", 200
+        except Exception as e:
+            return f"Error: {str(e)}", 500
 
     return app
 

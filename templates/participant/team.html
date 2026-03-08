@@ -37,9 +37,18 @@
             </div>
             <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
                 {% if team.payment_status == 'verified' %}
-                <span class="badge badge-green"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polyline points="20 6 9 17 4 12"></polyline></svg> Payment Verified</span>
+                <span class="badge badge-green"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" style="vertical-align: middle; display: inline-block;">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg> Payment Verified</span>
                 {% elif team.payment_status == 'rejected' %}
-                <span class="badge badge-red"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> Payment Rejected</span>
+                <span class="badge badge-red"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" style="vertical-align: middle; display: inline-block;">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg> Payment Rejected</span>
                 {% else %}
                 <span class="badge badge-yellow"> Payment Pending</span>
                 {% endif %}
@@ -79,6 +88,8 @@
                             <td class="hide-on-mobile" style="color:var(--text-secondary)">{{ p.phone }}</td>
                             <td>
                                 {% if p.qr_path %}
+                                <img src="{% if p.qr_path.startswith('http') %}{{ p.qr_path }}{% else %}{{ url_for('static', filename=p.qr_path) }}{% endif %}"
+                                    alt="QR" width="80" height="80" style="border-radius:8px" />
                                 {% endif %}
                                 <a href="{{ url_for('auth.download_id_card', uid=p.unique_id) }}"
                                     class="btn btn-ghost btn-sm" title="Download ID Card">Download ID</a>
