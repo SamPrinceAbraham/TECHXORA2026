@@ -120,14 +120,6 @@ def register_step2():
         session['reg_pending'] = reg
         return redirect(url_for('auth.payment_page'))
 
-    upload_dir = os.path.join(current_app.static_folder, 'uploads')
-    os.makedirs(upload_dir, exist_ok=True)
-    ext = os.path.splitext(proof_file.filename)[1].lower() or '.png'
-    proof_filename = f"pay_{transaction_id}{ext}"
-    proof_path = os.path.join(upload_dir, proof_filename)
-    proof_file.save(proof_path)
-    proof_rel = f"uploads/{proof_filename}"
-
     # Create Team record
     problem = ProblemStatement.query.get(reg['problem_id'])
     if not problem or problem.remaining_slots <= 0:
