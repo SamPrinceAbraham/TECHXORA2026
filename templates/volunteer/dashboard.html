@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Volunteer Scanner{% endblock %}
-{% block page_title %}🙋 Volunteer Scanner{% endblock %}
+{% block page_title %}<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24"
+    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+    style="vertical-align: middle; display: inline-block;">
+    <path d="M18 20V10"></path>
+    <path d="M12 20V4"></path>
+    <path d="M6 20v-4"></path>
+</svg> Volunteer Scanner{% endblock %}
 
 {% block extra_head %}
 <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
@@ -15,14 +21,24 @@
         <!-- ── Entry / Exit Scanner ─────────────────────────────── -->
         <div class="card">
             <div class="card-header">
-                <div class="card-title">🔄 Entry / Exit Scanner</div>
+                <div class="card-title"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" style="vertical-align: middle; display: inline-block;">
+                        <polyline points="23 4 23 10 17 10"></polyline>
+                        <polyline points="1 20 1 14 7 14"></polyline>
+                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                    </svg> Entry / Exit Scanner</div>
                 <span class="badge badge-system" style="font-size:0.68rem">Auto-Detect Mode</span>
             </div>
             <div class="card-body">
                 <div style="padding:10px 14px;margin-bottom:16px;border-radius:8px;
                     background:rgba(0,245,255,0.05);border:1px solid rgba(0,245,255,0.12);
                     font-size:0.82rem;color:var(--text-secondary);line-height:1.5">
-                    ⚡ <strong>Smart scan:</strong>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        style="vertical-align: middle; display: inline-block;">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg> <strong>Smart scan:</strong>
                     If participant is <span style="color:var(--neon-red);font-weight:600">outside</span> → marks
                     <strong>Entry</strong>.
                     If <span style="color:var(--neon-green);font-weight:600">inside</span> → marks
@@ -32,7 +48,13 @@
                 <!-- Camera + Manual row -->
                 <div style="display:flex;gap:10px;margin-bottom:12px">
                     <button type="button" class="btn btn-purple" style="flex-shrink:0" onclick="openCamera('toggle')">
-                        📷 Open Camera
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" style="vertical-align: middle; display: inline-block;">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
+                            </path>
+                            <circle cx="12" cy="13" r="4"></circle>
+                        </svg> Open Camera
                     </button>
                     <div style="flex:1;color:var(--text-muted);font-size:0.8rem;display:flex;align-items:center">
                         or type ID manually below
@@ -41,7 +63,13 @@
 
                 <form id="toggle-form">
                     <div class="scanner-input-wrap">
-                        <span class="scan-icon">📲</span>
+                        <span class="scan-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                style="vertical-align: middle; display: inline-block;">
+                                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                                <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                            </svg></span>
                         <input type="text" id="toggle-uid" class="form-control scanner-input" placeholder="HF-0001"
                             autocomplete="off" autocapitalize="characters" style="flex:1" />
                         <button type="submit" class="btn btn-primary">Scan →</button>
@@ -55,21 +83,40 @@
         <!-- ── Food Scanner ──────────────────────────────────────── -->
         <div class="card">
             <div class="card-header">
-                <div class="card-title">🍽️ Food Distribution Scanner</div>
+                <div class="card-title"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" style="vertical-align: middle; display: inline-block;">
+                        <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
+                        <path d="M7 2v20"></path>
+                        <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path>
+                    </svg> Food Distribution Scanner</div>
                 <span class="badge badge-food" style="font-size:0.68rem">One Token Per Participant</span>
             </div>
             <div class="card-body">
                 <div style="padding:10px 14px;margin-bottom:16px;border-radius:8px;
                     background:rgba(234,179,8,0.05);border:1px solid rgba(234,179,8,0.18);
                     font-size:0.82rem;color:var(--text-secondary);line-height:1.5">
-                    🍽️ <strong>Food scan:</strong> Issues one food token per participant. Blocks duplicate collection
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        style="vertical-align: middle; display: inline-block;">
+                        <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
+                        <path d="M7 2v20"></path>
+                        <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path>
+                    </svg> <strong>Food scan:</strong> Issues one food token per participant. Blocks duplicate
+                    collection
                     automatically.
                 </div>
 
                 <!-- Camera + Manual row -->
                 <div style="display:flex;gap:10px;margin-bottom:12px">
                     <button type="button" class="btn btn-success" style="flex-shrink:0" onclick="openCamera('food')">
-                        📷 Open Camera
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" style="vertical-align: middle; display: inline-block;">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
+                            </path>
+                            <circle cx="12" cy="13" r="4"></circle>
+                        </svg> Open Camera
                     </button>
                     <div style="flex:1;color:var(--text-muted);font-size:0.8rem;display:flex;align-items:center">
                         or type ID manually below
@@ -78,10 +125,24 @@
 
                 <form id="food-form">
                     <div class="scanner-input-wrap">
-                        <span class="scan-icon">🍽️</span>
+                        <span class="scan-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                style="vertical-align: middle; display: inline-block;">
+                                <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
+                                <path d="M7 2v20"></path>
+                                <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path>
+                            </svg></span>
                         <input type="text" id="food-uid" class="form-control scanner-input" placeholder="HF-0001"
                             autocomplete="off" autocapitalize="characters" style="flex:1" />
-                        <button type="submit" class="btn btn-success">Issue 🍽️</button>
+                        <button type="submit" class="btn btn-success">Issue <svg xmlns="http://www.w3.org/2000/svg"
+                                width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                style="vertical-align: middle; display: inline-block;">
+                                <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
+                                <path d="M7 2v20"></path>
+                                <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path>
+                            </svg></button>
                     </div>
                 </form>
 
@@ -92,7 +153,12 @@
         <!-- ── Session Log ────────────────────────────────────────── -->
         <div class="card">
             <div class="card-header">
-                <div class="card-title">🕐 This Session</div>
+                <div class="card-title"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" style="vertical-align: middle; display: inline-block;">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg> This Session</div>
                 <span id="session-count" class="badge badge-entry">0</span>
             </div>
             <div class="card-body" id="session-log" style="padding:0 22px 12px;max-height:300px;overflow-y:auto">
@@ -106,7 +172,12 @@
     <div>
         <div class="card">
             <div class="card-header">
-                <div class="card-title">📢 Announcements</div>
+                <div class="card-title"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" style="vertical-align: middle; display: inline-block;">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg> Announcements</div>
                 <span class="badge badge-entry">{{ announcements | length }}</span>
             </div>
             <div class="card-body" style="padding:0 22px 16px;max-height:600px;overflow-y:auto">
@@ -143,7 +214,13 @@
 
         <!-- Header -->
         <div style="margin-bottom:16px">
-            <div id="cam-title" style="font-size:1.05rem;font-weight:800;margin-bottom:4px">📷 Scan QR Code</div>
+            <div id="cam-title" style="font-size:1.05rem;font-weight:800;margin-bottom:4px"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    style="vertical-align: middle; display: inline-block;">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
+                </svg> Scan QR Code</div>
             <div id="cam-subtitle" style="font-size:0.78rem;color:var(--text-muted)">Point the camera at the
                 participant's QR code</div>
         </div>
@@ -169,7 +246,12 @@
       background:rgba(0,245,255,0.06); border:1px solid rgba(0,245,255,0.15);
       color:var(--neon-cyan); margin-bottom:16px; min-height:40px;
       display:flex;align-items:center;justify-content:center;gap:8px">
-            <span id="cam-status-icon">🎥</span>
+            <span id="cam-status-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" style="vertical-align: middle; display: inline-block;">
+                    <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                </svg></span>
             <span id="cam-status-text">Starting camera…</span>
         </div>
 
@@ -226,18 +308,18 @@
         const title = document.getElementById('cam-title');
         const subtitle = document.getElementById('cam-subtitle');
 
-        title.textContent = mode === 'food' ? '📷 Food Scanner Camera' : '📷 Entry / Exit Camera';
+        title.innerHTML = mode === 'food' ? '<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Food Scanner Camera' : '<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Entry / Exit Camera';
         subtitle.textContent = mode === 'food'
             ? 'Scan QR to issue a food token'
             : 'Scan QR to mark Entry or Exit (auto-detected)';
 
         modal.style.display = 'flex';
-        setStatus('🎥', 'Starting camera…', 'cyan');
+        setStatus('<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>', 'Starting camera…', 'cyan');
 
         html5QrCode = new Html5Qrcode('qr-reader');
         Html5Qrcode.getCameras().then(cameras => {
             if (!cameras || cameras.length === 0) {
-                setStatus('❌', 'No camera found on this device.', 'red');
+                setStatus('<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>', 'No camera found on this device.', 'red');
                 return;
             }
             // Prefer back camera
@@ -250,12 +332,12 @@
                 onQRSuccess,
                 () => { }
             ).then(() => {
-                setStatus('🟢', 'Camera ready — point at a QR code', 'green');
+                setStatus('<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="12" r="10" fill="currentColor" stroke="none"></circle></svg>', 'Camera ready — point at a QR code', 'green');
             }).catch(err => {
-                setStatus('❌', 'Camera access denied. Allow camera permissions.', 'red');
+                setStatus('<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>', 'Camera access denied. Allow camera permissions.', 'red');
             });
         }).catch(() => {
-            setStatus('❌', 'Camera access denied. Allow camera permissions.', 'red');
+            setStatus('<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>', 'Camera access denied. Allow camera permissions.', 'red');
         });
     }
 
@@ -278,7 +360,7 @@
         lastScanTime = now;
 
         const uid = decodedText.trim().toUpperCase();
-        setStatus('⏳', `Processing ${uid}…`, 'cyan');
+        setStatus('<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>', `Processing ${uid}…`, 'cyan');
 
         try {
             const res = await fetch(URLS[currentCameraMode], {
@@ -290,7 +372,7 @@
 
             if (data.success) {
                 const p = data.participant;
-                const icon = data.action === 'entry' ? '✅' : data.action === 'exit' ? '🚪' : '🍽️';
+                const icon = data.action === 'entry' ? '<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polyline points="20 6 9 17 4 12"></polyline></svg>' : data.action === 'exit' ? '<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M18 20V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v15"></path><path d="M2 20h20"></path><path d="M14 12v.01"></path></svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path><path d="M7 2v20"></path><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path></svg>';
                 setStatus(icon,
                     `${p.name} (${p.unique_id}) — ${data.action.toUpperCase()} recorded`, 'green');
                 showToast(data.message, 'success');
@@ -307,12 +389,12 @@
                 // Close camera after short delay so user sees feedback
                 setTimeout(closeCamera, 1800);
             } else {
-                setStatus('⚠️', data.message, 'red');
+                setStatus('<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>', data.message, 'red');
                 showToast(data.message, 'error');
                 addToLog({ ...data, action: 'error' });
             }
         } catch (_) {
-            setStatus('❌', 'Network error. Try again.', 'red');
+            setStatus('<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>', 'Network error. Try again.', 'red');
         }
     }
 
@@ -325,19 +407,19 @@
         el.style.color = colors[color];
         el.style.background = bgs[color];
         el.style.border = `1px solid ${borders[color]}`;
-        document.getElementById('cam-status-icon').textContent = icon;
+        document.getElementById('cam-status-icon').innerHTML = icon;
         document.getElementById('cam-status-text').textContent = text;
     }
 
     // ── Result HTML Builder ────────────────────────────────────────
     function buildResultHtml(data) {
         if (!data.success) {
-            return `<span style="font-size:1.5rem">⚠️</span>
+            return `<span style="font-size:1.5rem"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></span>
             <div><div style="font-weight:700;color:var(--neon-red)">${data.message}</div></div>`;
         }
         const p = data.participant;
         const teamMembers = data.team_members || [];
-        const icon = data.action === 'entry' ? '✅' : data.action === 'exit' ? '🚪' : '🍽️';
+        const icon = data.action === 'entry' ? '<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polyline points="20 6 9 17 4 12"></polyline></svg>' : data.action === 'exit' ? '<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M18 20V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v15"></path><path d="M2 20h20"></path><path d="M14 12v.01"></path></svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path><path d="M7 2v20"></path><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path></svg>';
         const color = data.action === 'entry' ? 'var(--neon-green)'
             : data.action === 'exit' ? 'var(--neon-red)'
                 : 'var(--neon-yellow)';
@@ -384,7 +466,7 @@
                         <span class="badge-dot"></span>${p.is_inside ? 'Inside' : 'Outside'}
                     </span>
                     <span class="badge ${p.food_issued ? 'badge-food' : 'badge-nofood'}">
-                        ${p.food_issued ? '🍽️ Food ×' + p.food_count : 'No Food Yet'}
+                        ${p.food_issued ? '<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path><path d="M7 2v20"></path><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path></svg> Food ×' + p.food_count : 'No Food Yet'}
                     </span>
                 </div>
             </div>
@@ -398,11 +480,11 @@
         const time = new Date().toLocaleTimeString();
         scanLog.unshift({ ...data, time });
         document.getElementById('session-count').textContent = scanLog.length;
-        const icons = { entry: '✅', exit: '🚪', food: '🍽️', error: '⚠️' };
+        const icons = { entry: '<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polyline points="20 6 9 17 4 12"></polyline></svg>', exit: '<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M18 20V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v15"></path><path d="M2 20h20"></path><path d="M14 12v.01"></path></svg>', food: '<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path><path d="M7 2v20"></path><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path></svg>', error: '<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>' };
         const html = scanLog.slice(0, 20).map(s => `
     <div style="display:flex;align-items:center;gap:10px;padding:9px 0;
                 border-bottom:1px solid rgba(255,255,255,0.04)">
-      <span style="font-size:1.1rem">${icons[s.action] || '⚠️'}</span>
+      <span style="font-size:1.1rem">${icons[s.action] || '<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>'}</span>
       <div style="flex:1;font-size:0.85rem;font-weight:600">${s.message}</div>
       <span style="font-size:0.72rem;color:var(--text-muted);flex-shrink:0">${s.time}</span>
     </div>`).join('');

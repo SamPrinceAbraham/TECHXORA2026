@@ -38,6 +38,9 @@
 
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
         }
 
         body {
@@ -45,8 +48,11 @@
             color: var(--text);
             font-family: 'Chakra Petch', sans-serif;
             overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
             min-height: 100vh;
             cursor: none;
+            position: relative;
         }
 
         /* ── Custom Cursor ──────────────────────────────── */
@@ -440,7 +446,7 @@
         .hero-title {
             font-family: 'Orbitron', monospace;
             font-weight: 900;
-            font-size: clamp(4rem, 12vw, 9rem);
+            font-size: clamp(2.5rem, 12vw, 9rem);
             line-height: 0.8;
             margin-bottom: 14px;
             display: inline-block;
@@ -1187,7 +1193,13 @@
             }
 
             .hero-title {
-                font-size: clamp(3.5rem, 18vw, 6rem);
+                font-size: clamp(1.8rem, 9vw, 4rem);
+                word-wrap: break-word;
+            }
+
+            .hero-title .sup {
+                right: -1em;
+                font-size: 0.3em;
             }
 
             .stats-container {
@@ -1233,6 +1245,15 @@
                 width: 100%;
                 text-align: center;
             }
+
+            .about-stats-box {
+                padding: 24px !important;
+            }
+
+            .about-stats-grid {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 12px !important;
+            }
         }
 
         /* ── Small Mobile (≤ 400px) ───────────────────────── */
@@ -1268,13 +1289,24 @@
                 font-size: clamp(2rem, 5vw, 3.5rem);
             }
 
-            .domains-grid {
+            .domains-grid,
+            .about-section-grid {
                 grid-template-columns: repeat(2, 1fr) !important;
             }
         }
 
         /* Tablet - max 768px */
         @media (max-width: 768px) {
+
+            .about-section-grid,
+            .faq-section-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .about-stats-grid {
+                grid-template-columns: 1fr 1fr !important;
+            }
+
             nav {
                 padding: 12px 16px;
             }
@@ -1340,13 +1372,13 @@
                 padding: 60px 5% !important;
             }
 
-            /* Core Team - 2 col grid */
+            /* Core Team - 1 col grid */
             #core-team {
                 padding: 60px 5% !important;
             }
 
             #core-team>div {
-                grid-template-columns: repeat(2, 1fr) !important;
+                grid-template-columns: 1fr !important;
                 gap: 16px !important;
             }
 
@@ -1527,9 +1559,9 @@
     <div class="side-login" id="sideLogin">
         <h3>PORTAL LOGIN</h3>
         <p>// Redirect to Management Portals</p>
-        <a href="{{ url_for('auth.login', role='participant') }}" class="login-btn"> ✦ Participant Portal</a>
-        <a href="{{ url_for('auth.login', role='volunteer') }}" class="login-btn"> ✦ Volunteer Portal</a>
-        <a href="{{ url_for('auth.login', role='admin') }}" class="login-btn">✦ Admin Portal</a>
+        <a href="{{ url_for('auth.login', role='participant') }}" class="login-btn"> <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"></polygon></svg> Participant Portal</a>
+        <a href="{{ url_for('auth.login', role='volunteer') }}" class="login-btn"> <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"></polygon></svg> Volunteer Portal</a>
+        <a href="{{ url_for('auth.login', role='admin') }}" class="login-btn"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"></polygon></svg> Admin Portal</a>
     </div>
 
     <main>
@@ -1578,7 +1610,7 @@
             </div>
 
             <div class="hero-btns">
-                <a href="/register" class="btn-solid">✦ REGISTER NOW</a>
+                <a href="/register" class="btn-solid"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"></polygon></svg> REGISTER NOW</a>
             </div>
         </section>
 
@@ -1603,7 +1635,7 @@
                 </h2>
             </div>
 
-            <div
+            <div class="about-section-grid"
                 style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 60px; max-width: 1200px; margin: 0 auto; align-items: center;">
                 <div style="text-align: left;">
                     <p style="font-size: 1.1rem; line-height: 1.8; color: rgba(220,210,255,0.7); margin-bottom: 24px;">
@@ -1631,15 +1663,16 @@
                     </div>
                 </div>
 
-                <div
+                <div class="about-stats-box"
                     style="position: relative; padding: 40px; background: rgba(10,8,22,0.6); border: 1px solid var(--border); border-radius: 24px; box-shadow: 0 0 40px rgba(167,139,250,0.08); backdrop-filter: blur(10px);">
                     <div
-                        style="width: 100%; aspect-ratio: 16/9; border-radius: 12px; border: 1px solid rgba(167,139,250,0.2); display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 30px; position: relative;">
+                        style="width: 100%; border-radius: 12px; border: 1px solid rgba(167,139,250,0.2); padding: 30px 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 30px;">
                         <img src="{{ url_for('static', filename='logos/techXora.png') }}" alt="TECHXORA"
-                            style="max-height: 120%; object-fit: contain; filter: drop-shadow(0 0 20px rgba(245,158,11,0.4));">
+                            style="width: 100%; max-width: 400px; height: auto; object-fit: contain; filter: drop-shadow(0 0 20px rgba(245,158,11,0.4));">
                     </div>
 
-                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; text-align: center;">
+                    <div class="about-stats-grid"
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 15px; text-align: center;">
                         <div>
                             <div
                                 style="font-family: 'Orbitron', monospace; font-size: 1.5rem; font-weight: 700; color: var(--sec);">
@@ -2464,7 +2497,7 @@
                 <div class="ps-desc">${p.description}</div>
                 <div class="ps-footer">
                     <a class="dl-btn" href="/api/problem-pdf/${p.id}" target="_blank">
-                        <span class="dl-icon">⬇</span> Download PDF
+                        <span class="dl-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg></span> Download PDF
                     </a>
                 </div>
             </div>
@@ -2638,7 +2671,7 @@
                     <a href="/register"
                         style="display:inline-block;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:13px;letter-spacing:4px;padding:18px 52px;background:linear-gradient(135deg,#a78bfa,#818cf8);color:#fff;cursor:pointer;border:none;text-decoration:none;text-transform:uppercase;clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);box-shadow:0 0 40px rgba(167,139,250,0.5);transition:all .3s;"
                         onmouseover="this.style.boxShadow='0 0 70px rgba(167,139,250,0.8)';this.style.transform='translateY(-3px)'"
-                        onmouseout="this.style.boxShadow='0 0 40px rgba(167,139,250,0.5)';this.style.transform=''">✦
+                        onmouseout="this.style.boxShadow='0 0 40px rgba(167,139,250,0.5)';this.style.transform=''"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"></polygon></svg>
                         REGISTER YOUR TEAM</a>
                     <a href="#problems"
                         style="display:inline-block;font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:13px;letter-spacing:3px;padding:17px 44px;background:transparent;color:var(--pri);text-decoration:none;text-transform:uppercase;border:1px solid rgba(167,139,250,0.4);clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);transition:all .3s;"
@@ -2705,7 +2738,7 @@
                     <div
                         style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#f59e0b,transparent);">
                     </div>
-                    <div style="font-size:3rem;margin-bottom:16px;">🥇</div>
+                    <div style="font-size:3rem;margin-bottom:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline><text x="12" y="11" font-size="6" text-anchor="middle" font-family="sans-serif" fill="currentColor" stroke="none">1</text></svg></div>
                     <div
                         style="font-family:'Orbitron',monospace;font-size:11px;letter-spacing:3px;color:var(--sec);text-transform:uppercase;margin-bottom:8px;">
                         First Place</div>
@@ -2737,7 +2770,7 @@
                     <div
                         style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#a78bfa,transparent);">
                     </div>
-                    <div style="font-size:3rem;margin-bottom:16px;">🥈</div>
+                    <div style="font-size:3rem;margin-bottom:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline><text x="12" y="11" font-size="6" text-anchor="middle" font-family="sans-serif" fill="currentColor" stroke="none">2</text></svg></div>
                     <div
                         style="font-family:'Orbitron',monospace;font-size:11px;letter-spacing:3px;color:var(--pri);text-transform:uppercase;margin-bottom:8px;">
                         Second Place</div>
@@ -2769,7 +2802,7 @@
                     <div
                         style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#34d399,transparent);">
                     </div>
-                    <div style="font-size:3rem;margin-bottom:16px;">🥉</div>
+                    <div style="font-size:3rem;margin-bottom:16px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline><text x="12" y="11" font-size="6" text-anchor="middle" font-family="sans-serif" fill="currentColor" stroke="none">3</text></svg></div>
                     <div
                         style="font-family:'Orbitron',monospace;font-size:11px;letter-spacing:3px;color:#34d399;text-transform:uppercase;margin-bottom:8px;">
                         Third Place</div>
@@ -2849,7 +2882,7 @@
                 </div>
 
                 <div class="coord-card">
-                    <div class="coord-name">BALAJI ADJ</div>
+                    <div class="coord-name">BALAJI A D J</div>
                     <a class="coord-phone">+91 86818 73891</a>
                 </div>
 
@@ -2872,7 +2905,7 @@
                 <!-- 1. Website Team -->
                 <div class="team-card" onclick="openTeamModal('website')"
                     style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;">💻</div>
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="2" y1="20" x2="22" y2="20"></line></svg></div>
                     <h3
                         style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--pri); margin-bottom: 8px;">
                         Website Team</h3>
@@ -2882,7 +2915,7 @@
                 <!-- 2. Design Team -->
                 <div class="team-card" onclick="openTeamModal('design')"
                     style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;">🎨</div>
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><circle cx="13.5" cy="5.5" r=".5"></circle><circle cx="17.5" cy="10.5" r=".5"></circle><circle cx="8.5" cy="7.5" r=".5"></circle><circle cx="6.5" cy="12.5" r=".5"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg></div>
                     <h3
                         style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--sec); margin-bottom: 8px;">
                         Design Team</h3>
@@ -2892,7 +2925,7 @@
                 <!-- 3. Registration Team -->
                 <div class="team-card" onclick="openTeamModal('registration')"
                     style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;">📋</div>
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg></div>
                     <h3
                         style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--pri); margin-bottom: 8px;">
                         Registration Team</h3>
@@ -2902,7 +2935,7 @@
                 <!-- 4. Technical Team  -->
                 <div class="team-card" onclick="openTeamModal('technical')"
                     style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;">⚙️</div>
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></div>
                     <h3
                         style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--sec); margin-bottom: 8px;">
                         Technical Team </h3>
@@ -2912,7 +2945,7 @@
                 <!-- 5. Student Mentors -->
                 <div class="team-card" onclick="openTeamModal('mentors')"
                     style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;">👨‍🏫</div>
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg></div>
                     <h3
                         style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--pri); margin-bottom: 8px;">
                         Student Mentors</h3>
@@ -2922,7 +2955,7 @@
                 <!-- 6. Marketing -->
                 <div class="team-card" onclick="openTeamModal('marketing')"
                     style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;">🚀</div>
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg></div>
                     <h3
                         style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--sec); margin-bottom: 8px;">
                         Marketing</h3>
@@ -2932,7 +2965,7 @@
                 <!-- 7. Sponsorship -->
                 <div class="team-card" onclick="openTeamModal('sponsorship')"
                     style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;">🤝</div>
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M17 14A5 5 0 0 0 7 14v1a3 3 0 0 0 3 3h4a3 3 0 0 0 3-3v-1Z"></path><path d="M8 8V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4"></path><path d="M22 14v1a3 3 0 0 1-3 3h-2"></path><path d="M2 14v1a3 3 0 0 0 3 3h2"></path></svg></div>
                     <h3
                         style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--pri); margin-bottom: 8px;">
                         Sponsorship</h3>
@@ -2942,7 +2975,7 @@
                 <!-- 8. Judging Panel -->
                 <div class="team-card" onclick="openTeamModal('judging')"
                     style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;">⚖️</div>
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="m12 3 4 5H8z"></path><line x1="12" y1="8" x2="12" y2="21"></line><line x1="2" y1="21" x2="22" y2="21"></line><path d="m5 16-3-3"></path><path d="m19 16 3-3"></path><path d="M7 16a5 5 0 0 0-5-5"></path><path d="M17 16a5 5 0 0 1 5-5"></path></svg></div>
                     <h3
                         style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--sec); margin-bottom: 8px;">
                         Judging Panel</h3>
@@ -2952,7 +2985,7 @@
                 <!-- 9. Finance -->
                 <div class="team-card" onclick="openTeamModal('finance')"
                     style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;">💰</div>
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
                     <h3
                         style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--pri); margin-bottom: 8px;">
                         Finance</h3>
@@ -2962,7 +2995,7 @@
                 <!-- 10. Food and Venue -->
                 <div class="team-card" onclick="openTeamModal('food_venue')"
                     style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;">🏨</div>
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M12 6h.01"></path><path d="M12 10h.01"></path><path d="M12 14h.01"></path><path d="M16 10h.01"></path><path d="M16 14h.01"></path><path d="M8 10h.01"></path><path d="M8 14h.01"></path></svg></div>
                     <h3
                         style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--sec); margin-bottom: 8px;">
                         Food & Venue</h3>
@@ -3121,8 +3154,8 @@
                 </h2>
             </div>
 
-            <div
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto;">
+            <div class="faq-section-grid"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto;">
 
                 <!-- FAQ Item -->
                 <div class="faq-item">
@@ -3376,7 +3409,7 @@
 
                     <div
                         style="display: flex; gap: 15px; margin-bottom: 25px; color: rgba(220, 210, 255, 0.7); font-size: 0.95rem;">
-                        <span style="font-size: 1.2rem; color: var(--sec);">📍</span>
+                        <span style="font-size: 1.2rem; color: var(--sec);"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
                         <div>
                             <strong
                                 style="color: #fff; font-family: 'Chakra Petch', sans-serif; font-size: 1.1rem;">Agni
@@ -3508,7 +3541,7 @@
             setInterval(updateStats, 10000);
 
             // Countdown Timer
-            const TARGET = new Date('2026-03-17T10:00:00');
+            const TARGET = new Date('2026-03-18T08:00:00');
             function tick() {
                 const diff = TARGET - new Date();
                 if (diff <= 0) {

@@ -34,6 +34,9 @@
 
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
         }
 
         body {
@@ -42,7 +45,10 @@
             font-family: 'Chakra Petch', sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
             cursor: none;
+            position: relative;
         }
 
         #cur {
@@ -617,13 +623,13 @@
 
             {% if registration_success %}
             <div class="success-card">
-                <span class="success-icon">⚡</span>
+                <span class="success-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></span>
                 <div class="success-title">REGISTRATION SUBMITTED!</div>
                 <p
                     style="font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;">
                     Team: {{ team_name }}</p>
                 <div class="success-body">
-                    <h3>⏱ Payment Verification Pending</h3>
+                    <h3><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Payment Verification Pending</h3>
                     <p>We have received your registration details and payment proof. Our team will verify the payment
                         shortly.<br><br>
                         Once verified, the team leader will receive an email containing the official ID cards for all
@@ -632,7 +638,7 @@
                 <p
                     style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(167,139,250,0.3);margin-bottom:24px;letter-spacing:1px;">
                     Your registration is confirmed. Log into the Participant Portal using your ID after approval.</p>
-                <a href="/register" class="btn-back">✦ Register Another Team</a>
+                <a href="/register" class="btn-back"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"></polygon></svg> Register Another Team</a>
             </div>
 
             {% else %}

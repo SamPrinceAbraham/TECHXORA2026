@@ -209,7 +209,7 @@ Login Credentials
 Your PDF ID card is attached. Please carry it to the venue.
 
 Event Details
-  Date  : April 15-16, 2026
+  Date  : March 18-19, 2026
   Venue : Agni College of Technology, OMR, Chennai
   Domain: {team.domain}
 

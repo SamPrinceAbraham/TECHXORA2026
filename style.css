@@ -1462,6 +1462,26 @@ tbody tr:hover td {
   .participant-id {
     font-size: 1.8rem;
   }
+
+  .how-to-card {
+    padding: 1rem;
+    margin-top: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Fix for overflowing body */
+  body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  #page-home,
+  .page {
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
 }
 
 /* ───── SCROLLBAR ───── */

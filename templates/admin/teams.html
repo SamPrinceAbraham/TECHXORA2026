@@ -13,7 +13,7 @@
 
 {% if not teams %}
 <div class="empty-state">
-    <div style="font-size:3rem;margin-bottom:16px">👥</div>
+    <div style="font-size:3rem;margin-bottom:16px"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
     <div>No teams registered yet.</div>
 </div>
 {% endif %}
@@ -43,15 +43,15 @@
             </div>
             <div style="display:flex;align-items:center;gap:12px">
                 {% if team.payment_status == 'verified' %}
-                <span class="badge badge-green">✓ Payment Verified</span>
+                <span class="badge badge-green"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polyline points="20 6 9 17 4 12"></polyline></svg> Payment Verified</span>
                 {% elif team.payment_status == 'rejected' %}
-                <span class="badge badge-red">✗ Payment Rejected</span>
+                <span class="badge badge-red"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> Payment Rejected</span>
                 {% else %}
-                <span class="badge badge-yellow">⏳ Payment Pending</span>
+                <span class="badge badge-yellow"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg> Payment Pending</span>
                 {% endif %}
                 <span style="font-size:0.75rem;color:var(--text-muted)">{{ team.members.count() }} / 4 member(s)</span>
                 {% if team.members.count() < 4 %} <button class="btn btn-purple btn-sm"
-                    onclick="showAddMemberForm({{ team.id }}, '{{ team.team_name }}')">
+                    onclick="showAddMemberForm({{ team.id }}, '{{ team.team_name | replace('\'', '\\\'') }}')">
                     + Add Member
                     </button>
                     {% endif %}
@@ -66,18 +66,19 @@
         </div>
 
         <!-- Member List -->
-        <div class="table-wrap" style="padding:16px 24px">
+        <div class="table-wrap"
+            style="padding:16px 24px; width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;">
             {% if team.members.count() == 0 %}
             <div style="color:var(--text-muted);font-size:0.85rem">No members found.</div>
             {% else %}
-            <table class="data-table" style="width:100%">
+            <table class="data-table" style="min-width: 600px;">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th class="hide-on-mobile">#</th>
                         <th>Participant ID</th>
                         <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
+                        <th class="hide-on-mobile">Email</th>
+                        <th class="hide-on-mobile">Phone</th>
                         <th>Status</th>
                         <th>ID</th>
                     </tr>
@@ -85,13 +86,13 @@
                 <tbody>
                     {% for p in team.members.order_by('member_number').all() %}
                     <tr>
-                        <td style="color:var(--text-muted)">{{ p.member_number }}</td>
+                        <td class="hide-on-mobile" style="color:var(--text-muted)">{{ p.member_number }}</td>
                         <td>
                             <code style="color:var(--cyan);font-size:0.85rem">{{ p.unique_id }}</code>
                         </td>
                         <td>{{ p.name }}</td>
-                        <td style="color:var(--text-secondary)">{{ p.email }}</td>
-                        <td style="color:var(--text-secondary)">{{ p.phone }}</td>
+                        <td class="hide-on-mobile" style="color:var(--text-secondary)">{{ p.email }}</td>
+                        <td class="hide-on-mobile" style="color:var(--text-secondary)">{{ p.phone }}</td>
                         <td>
                             {% if p.is_inside %}
                             <span class="badge badge-green">Inside</span>
@@ -99,7 +100,7 @@
                             <span class="badge badge-gray">Outside</span>
                             {% endif %}
                             {% if p.food_issued %}
-                            <span class="badge badge-yellow">Food ✓</span>
+                            <span class="badge badge-yellow">Food <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
                             {% endif %}
                         </td>
                         <td>
@@ -107,7 +108,7 @@
 
                             {% endif %}
                             <a href="{{ url_for('auth.download_id_card', uid=p.unique_id) }}"
-                                class="btn btn-ghost btn-sm" title="Download ID Card">⬇ ID</a>
+                                class="btn btn-ghost btn-sm" title="Download ID Card"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg> ID</a>
                         </td>
                     </tr>
                     {% endfor %}
