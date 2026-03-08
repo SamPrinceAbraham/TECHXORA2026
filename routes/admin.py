@@ -177,18 +177,17 @@ def verify_payment(pay_id):
     cards_dir = os.path.join(current_app.static_folder, 'id_cards')
     os.makedirs(cards_dir, exist_ok=True)
     
-    pdf_paths = []
+    pdf_urls = []
     for p in participants:
         # Generate QR code if not exists
         if not p.qr_path:
             p.qr_path = generate_qr(p.unique_id, qr_dir)
             
-        pdf_path = os.path.join(cards_dir, f"{p.unique_id}.pdf")
-        generate_id_card(p, pdf_path)
-        pdf_paths.append(pdf_path)
+        pdf_url = generate_id_card(p)
+        pdf_urls.append(pdf_url)
     
     # ── Send ID-card emails in background threads (with 5-attempt retry)
-    send_team_confirmation_email(team, participants, pdf_paths, async_send=True)
+    send_team_confirmation_email(team, participants, pdf_urls, async_send=True)
 
     db.session.commit()
     flash(f'Payment for team "{payment.team_obj.team_name}" verified. ID card emails are being sent in the background.', 'success')
