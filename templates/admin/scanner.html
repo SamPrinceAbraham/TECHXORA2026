@@ -1,25 +1,51 @@
 {% extends "base.html" %}
 {% block title %}Scanner{% endblock %}
-{% block page_title %}<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg> Scanner{% endblock %}
+{% block page_title %}<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24"
+    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+    style="vertical-align: middle; display: inline-block;">
+    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+    <line x1="12" y1="18" x2="12.01" y2="18"></line>
+</svg> Scanner{% endblock %}
 
 {% block content %}
 <div style="max-width:680px">
     <div class="card">
         <div class="card-header">
-            <div class="card-title"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg> QR / ID Scanner</div>
+            <div class="card-title"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" style="vertical-align: middle; display: inline-block;">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg> QR / ID Scanner</div>
         </div>
         <div class="card-body">
 
             <!-- Mode Selector -->
             <div class="scan-mode-tabs" id="mode-tabs">
                 <div class="scan-mode-tab active-entry" data-mode="entry" onclick="setMode('entry')">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polyline points="20 6 9 17 4 12"></polyline></svg> Entry
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        style="vertical-align: middle; display: inline-block;">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg> Entry
                 </div>
                 <div class="scan-mode-tab" data-mode="exit" onclick="setMode('exit')">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M18 20V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v15"></path><path d="M2 20h20"></path><path d="M14 12v.01"></path></svg> Exit
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        style="vertical-align: middle; display: inline-block;">
+                        <path d="M18 20V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v15"></path>
+                        <path d="M2 20h20"></path>
+                        <path d="M14 12v.01"></path>
+                    </svg> Exit
                 </div>
                 <div class="scan-mode-tab" data-mode="food" onclick="setMode('food')">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path><path d="M7 2v20"></path><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path></svg> Food
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        style="vertical-align: middle; display: inline-block;">
+                        <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
+                        <path d="M7 2v20"></path>
+                        <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path>
+                    </svg> Food
                 </div>
             </div>
 
@@ -28,10 +54,30 @@
                 <span id="mode-desc">Scan or type a Participant ID to mark <strong>Entry</strong>.</span>
             </div>
 
+            <!-- Meal Selection (Hidden by default, shown for food) -->
+            <div id="meal-select-container" style="margin-bottom:16px; display:none;">
+                <label
+                    style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; display:block; margin-bottom:8px">Select
+                    Meal Session</label>
+                <select id="meal-select" class="form-control"
+                    style="background:rgba(255,255,255,0.05); border-color:rgba(234,179,8,0.3); color:var(--text-primary)">
+                    <option value="Breakfast">🍳 Breakfast</option>
+                    <option value="Lunch">🍲 Lunch</option>
+                    <option value="High Tea">☕ High Tea</option>
+                    <option value="Dinner">🍽️ Dinner</option>
+                </select>
+            </div>
+
             <form id="scanner-form">
                 <input type="hidden" id="mode-input" value="entry" />
                 <div class="scanner-input-wrap">
-                    <span class="scan-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg></span>
+                    <span class="scan-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align: middle; display: inline-block;">
+                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                        </svg></span>
                     <input type="text" id="scan-uid" class="form-control scanner-input" placeholder="HF-0001"
                         autocomplete="off" autocapitalize="characters" style="flex:1" />
                     <button type="submit" class="btn btn-primary">
@@ -48,7 +94,12 @@
     <!-- History (mini) -->
     <div class="card" style="margin-top:20px">
         <div class="card-header">
-            <div class="card-title"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Recent Scans</div>
+            <div class="card-title"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" style="vertical-align: middle; display: inline-block;">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg> Recent Scans</div>
             <span id="recent-count" class="badge badge-entry">0</span>
         </div>
         <div class="card-body" id="recent-scans" style="padding:0 22px 12px">
@@ -76,6 +127,15 @@
             tab.className = 'scan-mode-tab';
             if (tab.dataset.mode === mode) tab.classList.add(MODES[mode].color);
         });
+
+        // Show/hide meal dropdown
+        const mealContainer = document.getElementById('meal-select-container');
+        if (mode === 'food') {
+            mealContainer.style.display = 'block';
+        } else {
+            mealContainer.style.display = 'none';
+        }
+
         document.getElementById('scan-uid').focus();
     }
 
@@ -89,7 +149,23 @@
 
     // Override form submit to also add to recent scans
     const form = document.getElementById('scanner-form');
+    // Important: we also need to append the meal parameter manually since initScanner doesn't know about it natively
+    // We can do this by hooking into the submit event *before* initScanner processes it if possible, 
+    // or we'll just add a hidden input to the form that gets updated before submit
     form.addEventListener('submit', () => {
+        // If mode is food, create or update a hidden input for the meal
+        if (currentMode === 'food') {
+            let mealInput = document.getElementById('hidden-meal-input');
+            if (!mealInput) {
+                mealInput = document.createElement('input');
+                mealInput.type = 'hidden';
+                mealInput.id = 'hidden-meal-input';
+                mealInput.name = 'meal';
+                form.appendChild(mealInput);
+            }
+            mealInput.value = document.getElementById('meal-select').value;
+        }
+
         const uid = document.getElementById('scan-uid').value.trim().toUpperCase();
         const mode = currentMode;
         setTimeout(() => {
@@ -107,10 +183,30 @@
         let html = scans.slice(0, 10).map(s => `
     <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
       <span style="font-family:monospace;font-size:0.82rem;color:var(--neon-cyan)">${s.uid}</span>
-      <span class="badge badge-${s.mode}">${MODES[s.mode].label}</span>
+      <span class="badge badge-${s.mode || s.action}">${MODES[s.mode || s.action]?.label || (s.mode || s.action)}</span>
       <span style="margin-left:auto;font-size:0.75rem;color:var(--text-muted)">${s.time}</span>
     </div>`).join('');
         document.getElementById('recent-scans').innerHTML = `<div style="margin-top:4px">${html}</div>`;
     }
+
+    // Fetch initial scan history
+    fetch('/api/logs').then(res => res.json()).then(data => {
+        data.forEach(log => {
+            if (MODES[log.action]) {
+                // Determine local time from UTC timestamp string
+                const d = new Date(log.timestamp.replace(' ', 'T') + 'Z');
+                let timeStr = log.timestamp.split(' ')[1]; // fallback
+                if (!isNaN(d.getTime())) {
+                    timeStr = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                }
+                scans.push({
+                    uid: log.participant_uid,
+                    mode: log.action,
+                    time: timeStr
+                });
+            }
+        });
+        renderRecent();
+    }).catch(err => console.error("Error fetching logs", err));
 </script>
 {% endblock %}

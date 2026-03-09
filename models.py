@@ -86,11 +86,11 @@ class Participant(db.Model):
             if log.action == 'entry':
                 entry_time = log.timestamp
             elif log.action == 'exit' and entry_time:
-                delta = (log.timestamp - entry_time).total_seconds() / 60
+                delta = (log.timestamp.replace(tzinfo=None) - entry_time.replace(tzinfo=None)).total_seconds() / 60
                 total += delta
                 entry_time = None
         if entry_time and self.is_inside:
-            delta = (datetime.utcnow() - entry_time).total_seconds() / 60
+            delta = (datetime.utcnow() - entry_time.replace(tzinfo=None)).total_seconds() / 60
             total += delta
         return round(total, 1)
 
@@ -100,7 +100,7 @@ class Participant(db.Model):
             return 0
         last_exit = self.logs.filter_by(action='exit').order_by(Log.timestamp.desc()).first()
         if last_exit:
-            return round((datetime.utcnow() - last_exit.timestamp).total_seconds() / 60, 1)
+            return round((datetime.utcnow() - last_exit.timestamp.replace(tzinfo=None)).total_seconds() / 60, 1)
     @property
     def _qr_abs(self):
         """Returns absolute path to QR code on disk."""
@@ -110,9 +110,9 @@ class Participant(db.Model):
         from flask import current_app
         return os.path.join(current_app.static_folder, self.qr_path)
 
-    def to_dict(self):
+    def to_dict(self, basic=False):
         team = self.team_obj
-        return {
+        data = {
             'id': self.id,
             'unique_id': self.unique_id,
             'member_number': self.member_number,
@@ -131,9 +131,11 @@ class Participant(db.Model):
             'password': self.password or '',
             'registered_at': self.registered_at.strftime('%Y-%m-%d %H:%M'),
             'qr_path': self.qr_path or '',
-            'break_minutes': self.get_current_break_minutes(),
-            'time_inside': self.get_time_inside(),
         }
+        if not basic:
+            data['break_minutes'] = self.get_current_break_minutes()
+            data['time_inside'] = self.get_time_inside()
+        return data
 
 
 class Payment(db.Model):
@@ -163,10 +165,10 @@ class Log(db.Model):
     __tablename__ = 'logs'
 
     id = db.Column(db.Integer, primary_key=True)
-    participant_id = db.Column(db.Integer, db.ForeignKey('participants.id'), nullable=True)
-    action = db.Column(db.String(30), nullable=False)  # entry, exit, food, system
+    participant_id = db.Column(db.Integer, db.ForeignKey('participants.id'), nullable=True, index=True)
+    action = db.Column(db.String(30), nullable=False, index=True)  # entry, exit, food, system
     note = db.Column(db.String(300), nullable=True)
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow, index=True)
 
     def to_dict(self):
         return {

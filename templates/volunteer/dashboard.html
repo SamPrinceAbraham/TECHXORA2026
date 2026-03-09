@@ -107,6 +107,20 @@
                     automatically.
                 </div>
 
+                <!-- Meal Selection -->
+                <div style="margin-bottom:16px;">
+                    <label
+                        style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; display:block; margin-bottom:8px">Select
+                        Meal Session</label>
+                    <select id="meal-select" class="form-control"
+                        style="background:rgba(255,255,255,0.05); border-color:rgba(234,179,8,0.3); color:var(--text-primary)">
+                        <option value="Breakfast">🍳 Breakfast</option>
+                        <option value="Lunch">🍲 Lunch</option>
+                        <option value="High Tea">☕ High Tea</option>
+                        <option value="Dinner">🍽️ Dinner</option>
+                    </select>
+                </div>
+
                 <!-- Camera + Manual row -->
                 <div style="display:flex;gap:10px;margin-bottom:12px">
                     <button type="button" class="btn btn-success" style="flex-shrink:0" onclick="openCamera('food')">
@@ -363,11 +377,28 @@
         setStatus('<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>', `Processing ${uid}…`, 'cyan');
 
         try {
+            const formData = new URLSearchParams({ uid });
+            if (currentCameraMode === 'food') {
+                formData.append('meal', document.getElementById('meal-select').value);
+            }
+
             const res = await fetch(URLS[currentCameraMode], {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams({ uid }),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'application/json'
+                },
+                body: formData,
             });
+
+            if (res.status === 401) {
+                const data = await res.json();
+                setStatus('<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>', 'Session Expired', 'red');
+                showToast(data.message || 'Session expired. Please log in again.', 'error');
+                setTimeout(() => window.location.reload(), 2000);
+                return;
+            }
+
             const data = await res.json();
 
             if (data.success) {
@@ -501,11 +532,26 @@
         if (!uid) { showToast('Please enter a participant ID or use the camera.', 'error'); return; }
 
         try {
+            const formData = new URLSearchParams({ uid });
+            if (mode === 'food') {
+                formData.append('meal', document.getElementById('meal-select').value);
+            }
+
             const res = await fetch(URLS[mode], {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams({ uid }),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'application/json'
+                },
+                body: formData,
             });
+
+            if (res.status === 401) {
+                showToast('Session expired. Please log in again.', 'error');
+                setTimeout(() => window.location.reload(), 2000);
+                return;
+            }
+
             const data = await res.json();
             resultEl.className = `scanner-result show ${data.success ? 'success' : 'error'}`;
             resultEl.innerHTML = buildResultHtml(data);
@@ -516,7 +562,7 @@
             } else {
                 addToLog({ ...data, action: 'error' });
             }
-        } catch (_) { showToast('Network error.', 'error'); }
+        } catch (_) { showToast('Network error or server unavailable.', 'error'); }
         document.getElementById(inputId).focus();
     }
 

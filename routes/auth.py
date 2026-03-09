@@ -214,19 +214,16 @@ def register_step2():
     return render_template('index.html', registration_success=True, team_name=reg['team_name'])
 
 
-# ── Download PDF ID Card ──────────────────────────────────────────────────────
 @auth_bp.route('/id-card/<uid>.pdf')
 def download_id_card(uid):
     p = Participant.query.filter_by(unique_id=uid).first_or_404()
     
     from routes.pdf_utils import generate_id_card
-    cards_dir = os.path.join(current_app.static_folder, 'id_cards')
-    os.makedirs(cards_dir, exist_ok=True)
-    pdf_path = os.path.join(cards_dir, f"{uid}.pdf")
-    generate_id_card(p, pdf_path)
-    return send_file(pdf_path, as_attachment=True,
-                     download_name=f"{uid}_IDCard.pdf",
-                     mimetype='application/pdf')
+    # Generate fresh ID card, upload to Supabase, get cache-busted URL
+    public_url = generate_id_card(p)
+    
+    # Redirect to the Supabase URL to download/view the fresh PDF
+    return redirect(public_url)
 
 
 # ── Login ─────────────────────────────────────────────────────────────────────

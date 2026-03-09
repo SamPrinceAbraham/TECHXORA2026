@@ -85,7 +85,7 @@ def generate_id_card(participant, output_path=None) -> str:
 
     c.setFillColor(colors.HexColor('#c4b5fd'))
     c.setFont('Helvetica', 6)
-    c.drawCentredString(W / 2, H - 11*mm, 'DEPTARTMENT OF COMPUTER SCIENCE AND ENGINEERING')
+    c.drawCentredString(W / 2, H - 11*mm, 'DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING')
 
     c.setFillColor(CYAN)
     c.setFont('Helvetica-Bold', 12)

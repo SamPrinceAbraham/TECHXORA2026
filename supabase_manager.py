@@ -68,4 +68,29 @@ def upload_bytes(bucket_name, file_bytes, remote_path, content_type="application
         file_options={"cache-control": "3600", "upsert": "true", "content-type": content_type}
     )
     
-    return supabase.storage.from_(bucket_name).get_public_url(remote_path)
+    public_url = supabase.storage.from_(bucket_name).get_public_url(remote_path)
+    
+    # Append cache-busting timestamp
+    import time
+    t = int(time.time())
+    if "?" in public_url:
+        public_url += f"&t={t}"
+    else:
+        public_url += f"?t={t}"
+        
+    return public_url
+
+
+def delete_file(bucket_name, remote_path):
+    """
+    Delete a file from a Supabase bucket.
+    """
+    if not supabase:
+        return False
+        
+    try:
+        supabase.storage.from_(bucket_name).remove([remote_path])
+        return True
+    except Exception as e:
+        print(f"Error deleting {remote_path} from {bucket_name}: {e}")
+        return False

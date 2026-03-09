@@ -421,7 +421,11 @@
         </div>
 
         <div class="steps">
-            <div class="step done"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polyline points="20 6 9 17 4 12"></polyline></svg> Step 1 · Team Details</div>
+            <div class="step done"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" style="vertical-align: middle; display: inline-block;">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg> Step 1 · Team Details</div>
             <div class="step active"> Step 2 · Payment</div>
         </div>
 
@@ -502,8 +506,12 @@
             const nameEl = document.getElementById('file-name');
             if (input.files && input.files[0]) {
                 zone.classList.add('has-file');
-                nameEl.style.display = 'block';
-                nameEl.textContent = '<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; display: inline-block;"><polyline points="20 6 9 17 4 12"></polyline></svg> ' + input.files[0].name;
+                nameEl.style.display = 'flex';
+                nameEl.style.alignItems = 'center';
+                nameEl.style.justifyContent = 'center';
+                nameEl.style.gap = '8px';
+                nameEl.style.wordBreak = 'break-all';
+                nameEl.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><polyline points="20 6 9 17 4 12"></polyline></svg> ' + input.files[0].name;
             }
         }
     </script>

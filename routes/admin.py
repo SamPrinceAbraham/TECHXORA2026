@@ -13,6 +13,7 @@ from routes.mail_utils import (
     send_registration_email, send_team_confirmation_email,
     send_announcement_email, send_id_card_email
 )
+from supabase_manager import delete_file
 admin_bp = Blueprint('admin', __name__)
 
 
@@ -73,6 +74,12 @@ def delete_team(team_id):
     if team.payment_status != 'rejected' and team.problem_statement:
         team.problem_statement.teams_selected = max(0, team.problem_statement.teams_selected - 1)
 
+    # Delete Supabase files for all members
+    for p in team.members:
+        if p.unique_id:
+            delete_file("id_cards", f"{p.unique_id}.pdf")
+            delete_file("qrcodes", f"{p.unique_id}.png")
+
     db.session.delete(team)
     db.session.commit()
     flash(f'Team "{name}" and all members deleted successfully.', 'success')
@@ -127,6 +134,12 @@ def delete_participant(p_id):
     p = Participant.query.get_or_404(p_id)
     name = p.name
     uid = p.unique_id
+    
+    # Delete Supabase files
+    if uid:
+        delete_file("id_cards", f"{uid}.pdf")
+        delete_file("qrcodes", f"{uid}.png")
+        
     db.session.delete(p)
     db.session.commit()
     flash(f'Participant {name} ({uid}) deleted.', 'success')
@@ -320,41 +333,68 @@ def add_member(team_id):
 
 
 # ── Scanner ────────────────────────────────────────────────────────────────────
-@admin_bp.route('/scan', methods=['GET', 'POST'])
+@admin_bp.route('/scan', methods=['GET'])
 @admin_required
 def scan():
-    result = None
-    if request.method == 'POST':
-        uid = request.form.get('participant_id', '').strip().upper()
-        mode = request.form.get('mode', 'entry')
-        p = Participant.query.filter_by(unique_id=uid).first()
-        if not p:
-            flash(f'Participant ID "{uid}" not found.', 'error')
+    return render_template('admin/scanner.html')
+
+
+@admin_bp.route('/process_scan', methods=['POST'])
+@admin_required
+def process_scan():
+    uid = request.form.get('uid', '').strip().upper()
+    mode = request.form.get('mode', 'entry')
+    meal = request.form.get('meal', 'General').strip()
+    
+    p = Participant.query.filter_by(unique_id=uid).first()
+    if not p:
+        return jsonify({'success': False, 'message': f'Participant ID "{uid}" not found.'})
+    
+    try:
+        if mode == 'entry':
+            p.is_inside = True
+            action_note = f"{p.name} ({uid}) entered."
+        elif mode == 'exit':
+            p.is_inside = False
+            action_note = f"{p.name} ({uid}) exited."
+        elif mode == 'food':
+            # Check if food already collected for THIS meal TODAY
+            from datetime import datetime, date
+            today = date.today()
+            # Look for a log with action 'food' and note containing the meal name on this day
+            existing_log = Log.query.filter(
+                Log.participant_id == p.id,
+                Log.action == 'food',
+                Log.note.ilike(f'%{meal}%'),
+                db.func.date(Log.timestamp) == today
+            ).first()
+
+            if existing_log:
+                # Return partial success to show data but with warning
+                return jsonify({
+                    'success': False, 
+                    'message': f'{p.name} has already collected {meal} today.',
+                    'participant': p.to_dict(basic=True)
+                })
+                
+            p.food_issued = True
+            p.food_count = (p.food_count or 0) + 1
+            action_note = f"{meal} token issued to {p.name}. Total: {p.food_count}"
         else:
-            if mode == 'entry':
-                p.is_inside = True
-                action_note = f"{p.name} ({uid}) entered the venue."
-            elif mode == 'exit':
-                p.is_inside = False
-                action_note = f"{p.name} ({uid}) exited the venue."
-            elif mode == 'food':
-                if p.food_issued:
-                    flash(f'{p.name} has already collected their food token.', 'error')
-                    result = p
-                    return render_template('admin/scanner.html', result=result)
-                p.food_issued = True
-                p.food_count += 1
-                action_note = f"Food token issued to {p.name} ({uid})."
-            else:
-                action_note = f"Unknown action for {uid}."
+            return jsonify({'success': False, 'message': 'Invalid scan mode.'})
 
-            log = Log(participant_id=p.id, action=mode, note=action_note)
-            db.session.add(log)
-            db.session.commit()
-            flash(action_note, 'success')
-            result = p
-
-    return render_template('admin/scanner.html', result=result)
+        log = Log(participant_id=p.id, action=mode, note=action_note)
+        db.session.add(log)
+        db.session.commit()
+        
+        return jsonify({
+            'success': True,
+            'message': action_note,
+            'participant': p.to_dict(basic=True)
+        })
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'success': False, 'message': f'Server error: {str(e)}'})
 
 
 # ── Logs ───────────────────────────────────────────────────────────────────────

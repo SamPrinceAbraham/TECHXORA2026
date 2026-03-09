@@ -33,15 +33,19 @@ def dashboard():
     from collections import defaultdict
     from datetime import timezone
 
+    from datetime import timedelta
+    
     timeline = defaultdict(list)
     for log in logs:
         if log.action not in ['entry', 'exit', 'food']:
             continue
-        date_key = log.timestamp.strftime('%Y-%m-%d')
+        # Convert from UTC to IST (+5:30)
+        ist_time = log.timestamp + timedelta(hours=5, minutes=30)
+        date_key = ist_time.strftime('%Y-%m-%d')
         timeline[date_key].append({
             'action': log.action,
-            'time': log.timestamp.strftime('%H:%M'),
-            'timestamp': log.timestamp,
+            'time': ist_time.strftime('%H:%M'),
+            'timestamp': ist_time,
             'note': log.note or '',
         })
 

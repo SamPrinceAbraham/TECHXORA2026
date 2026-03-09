@@ -91,8 +91,6 @@
                                 <img src="{% if p.qr_path.startswith('http') %}{{ p.qr_path }}{% else %}{{ url_for('static', filename=p.qr_path) }}{% endif %}"
                                     alt="QR" width="80" height="80" style="border-radius:8px" />
                                 {% endif %}
-                                <a href="{{ url_for('auth.download_id_card', uid=p.unique_id) }}"
-                                    class="btn btn-ghost btn-sm" title="Download ID Card">Download ID</a>
                             </td>
                         </tr>
                         {% endfor %}
