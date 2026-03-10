@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TECHXORA 26 – Hackathon Management System</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logos/techXora.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Chakra+Petch:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
@@ -204,9 +205,10 @@
 
         .nav-links a {
             font-family: 'Space Mono', monospace;
-            font-size: 10px;
+            font-size: 12px;
+            font-weight: bold;
             letter-spacing: 2px;
-            color: var(--dim);
+            color: #ffffff;
             text-decoration: none;
             text-transform: uppercase;
             transition: color .3s, text-shadow .3s;
@@ -423,7 +425,7 @@
 
         .college-name {
             font-family: 'Orbitron', monospace;
-            font-size: clamp(1.4rem, 4vw, 2.8rem);
+            font-size: clamp(1.3rem, 2vw, 2.6rem);
             color: var(--text);
             letter-spacing: 3px;
             font-weight: 900;
@@ -431,7 +433,7 @@
 
         .dept-name {
             font-family: 'Space Mono', monospace;
-            font-size: clamp(0.6rem, 1.2vw, 0.9rem);
+            font-size: clamp(1.5rem, 2.0vw, 3rem);
             color: var(--pri);
             letter-spacing: 3px;
             text-transform: uppercase;
@@ -439,9 +441,11 @@
 
         .presents-text {
             font-family: 'Chakra Petch', sans-serif;
-            font-size: 1.1rem;
-            color: var(--dim);
+            font-size: 1.5rem;
+            color: #ffffff;
             font-style: italic;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
         }
 
         .live-dot {
@@ -2157,7 +2161,32 @@
                 </div>
                 <div class="college-name">AGNI COLLEGE OF TECHNOLOGY</div>
                 <div class="dept-name">DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING</div>
-                <div class="presents-text">presents</div>
+                <div
+                    style="font-family: 'Space Mono', monospace; font-size: 0.9rem; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-top: 15px;">
+                    In Association With
+                </div>
+                <div
+                    style="display: flex; gap: 40px; justify-content: center; align-items: center; margin-top: 10px; margin-bottom: 5px; width: 100%;">
+
+                    <img src="{{ url_for('static', filename='logos/sponsor1.jpg') }}" alt="Sponsor 1"
+                        style="height: 60px; object-fit: contain; border-radius: 8px;">
+                    <div
+                        style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;">
+                        <img src="{{ url_for('static', filename='logos/sponsor2.jpeg') }}" alt="Sponsor 2"
+                            style="height: 90px; object-fit: contain; border-radius: 8px;">
+                        <span
+                            style="font-family: 'Space Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase;">Gaspear
+                            Solutions Pvt Ltd</span>
+                    </div>
+                </div>
+                <div class="presents-text" style="margin-top: 15px;">presents</div>
+            </div>
+
+            </div>
+
+            <div style="margin: -30px auto 30px; text-align: center;">
+                <img src="{{ url_for('static', filename='logos/techXora.png') }}" alt="TECHXORA Logo"
+                    style="height: 360px; object-fit: contain; filter: drop-shadow(0 0 20px rgba(167, 139, 250, 0.4));">
             </div>
 
             <div class="live-badge"><span class="live-dot"></span> LIVE 24-HOUR NATIONAL LEVEL HACKATHON</div>
@@ -2214,7 +2243,7 @@
                 style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 50px;">
                 <div
                     style="font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 6px; color: var(--pri); text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; justify-content: center; gap: 14px;">
-                    :: ABOUT THE EVENT ::
+                    :: ABOUT THE EVENT :
                 </div>
                 <h2
                     style="font-family: 'Chakra Petch', sans-serif; font-size: clamp(2rem, 5vw, 4rem); font-weight: 700; color: #fff; line-height: 1.1;">
@@ -2246,7 +2275,8 @@
                             style="padding: 12px 24px; border: 1px solid rgba(167,139,250,0.3); border-radius: 30px; font-family: 'Space Mono', monospace; font-size: 11px; color: var(--pri); text-transform: uppercase;">All
                             Branches</span>
                         <span
-                            style="padding: 12px 24px; border: 1px solid rgba(245,158,11,0.3); border-radius: 30px; background: rgba(245,158,11,0.05); font-family: 'Space Mono', monospace; font-size: 11px; color: var(--sec); text-transform: uppercase; box-shadow: 0 0 15px rgba(245,158,11,0.1);">Cash
+                            style="padding: 12px 24px; border: 1px solid rgba(245,158,11,0.3); border-radius: 30px; background: rgba(245,158,11,0.05); font-family: 'Space Mono', monospace; font-size: 11px; color: var(--sec); text-transform: uppercase; box-shadow: 0 0 15px rgba(245,158,11,0.1);">10
+                            k Cash
                             Prizes</span>
 
                     </div>
@@ -2255,9 +2285,31 @@
                 <div class="about-stats-box"
                     style="position: relative; padding: 40px; background: rgba(10,8,22,0.6); border: 1px solid var(--border); border-radius: 24px; box-shadow: 0 0 40px rgba(167,139,250,0.08); backdrop-filter: blur(10px);">
                     <div
-                        style="width: 100%; border-radius: 12px; border: 1px solid rgba(167,139,250,0.2); padding: 30px 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 30px;">
-                        <img src="{{ url_for('static', filename='logos/techXora.png') }}" alt="TECHXORA"
-                            style="width: 100%; max-width: 400px; height: auto; object-fit: contain; filter: drop-shadow(0 0 20px rgba(245,158,11,0.4));">
+                        style="width: 100%; border-radius: 12px; border: 1px solid rgba(167,139,250,0.2); padding: 30px 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 30px;">
+                        <img src="{{ url_for('static', filename='logos/techXora.png') }}" alt="TECHXORA Logo"
+                            style="width: 100%; max-width: 600px; height: auto; object-fit: contain; filter: drop-shadow(0 0 20px rgba(167,139,250,0.4));">
+
+                        <div style="margin-top: 20px;">
+                            <div
+                                style="position: relative; display: inline-block; padding: 2px; border-radius: 30px; background: linear-gradient(90deg, #ff007f, #7928ca, #ff007f); background-size: 200% auto; animation: shine 3s linear infinite;">
+                                <span class="logo-credit-badge"
+                                    style="display: block; font-family: 'Space Mono', monospace; font-size: 13px; font-weight: 900; color: #fff; letter-spacing: 2.5px; text-transform: uppercase; background: #0a0816; padding: 12px 28px; border-radius: 28px; text-shadow: 0 0 15px #ff007f; box-shadow: inset 0 0 15px rgba(255,0,127,0.3);">
+                                    <div
+                                        style="display: flex; align-items: center; justify-content: center; gap: 6px; white-space: nowrap;">
+                                        <span>LOGO DESIGNED BY MAHATHI L</span>
+                                        <span style="color: #a78bfa; font-weight: 500; font-size: 10px;">| II-YEAR
+                                            CSE-B</span>
+                                    </div>
+                                </span>
+                            </div>
+                            <style>
+                                @keyframes shine {
+                                    to {
+                                        background-position: 200% center;
+                                    }
+                                }
+                            </style>
+                        </div>
                     </div>
 
                     <div class="about-stats-grid"
@@ -2281,10 +2333,10 @@
                         <div>
                             <div
                                 style="font-family: 'Orbitron', monospace; font-size: 1.5rem; font-weight: 700; color: var(--sec);">
-                                Cash</div>
+                                10 K </div>
                             <div
-                                style="font-family: 'Space Mono', monospace; font-size: 8px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;">
-                                PRIZES</div>
+                                style="font-family: 'Space Mono', monospace; font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;">
+                                Cash PRIZES</div>
                         </div>
                         <div>
                             <div
@@ -3230,10 +3282,10 @@
                         style="padding:24px 16px;background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.15);border-radius:10px;text-align:center;">
                         <div
                             style="font-family:'Orbitron',monospace;font-size:2.2rem;font-weight:900;color:var(--sec);line-height:1;">
-                            Cash</div>
+                            10K </div>
                         <div
                             style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-top:6px;">
-                            Prizes</div>
+                            Cash Prizes</div>
                     </div>
                     <div
                         style="padding:24px 16px;background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.15);border-radius:10px;text-align:center;">
@@ -3248,7 +3300,7 @@
                         style="padding:24px 16px;background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.15);border-radius:10px;text-align:center;">
                         <div
                             style="font-family:'Orbitron',monospace;font-size:2.2rem;font-weight:900;color:var(--sec);line-height:1;">
-                            2–4</div>
+                            3-4</div>
                         <div
                             style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-top:6px;">
                             Members</div>
@@ -3284,7 +3336,9 @@
                         </svg></div>
                     <div
                         style="font-family:'Orbitron',monospace;font-size:11px;letter-spacing:3px;color:var(--sec);text-transform:uppercase;margin-bottom:8px;">
-                        First Place</div>
+                        First Place <br>
+                        5000 IR
+                    </div>
                     <!--<div
                         style="font-family:'Orbitron',monospace;font-size:3rem;font-weight:900;color:var(--sec);line-height:1;filter:drop-shadow(0 0 20px rgba(245,158,11,0.6));margin-bottom:8px;">
                         ₹25,000</div> -->
@@ -3294,7 +3348,8 @@
                     <ul style="list-style:none;text-align:left;">
                         <li
                             style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(220,210,255,0.6);margin-bottom:8px;padding-left:16px;position:relative;">
-                            <span style="position:absolute;left:0;color:var(--sec);">▸</span>Trophy + Certificate
+                            <span style="position:absolute;left:0;color:var(--sec);">▸</span>Trophy + Certificate and
+                            Internship opportunities
                         </li>
                         <!--<li
                             style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(220,210,255,0.6);margin-bottom:8px;padding-left:16px;position:relative;">
@@ -3324,7 +3379,9 @@
                         </svg></div>
                     <div
                         style="font-family:'Orbitron',monospace;font-size:11px;letter-spacing:3px;color:var(--pri);text-transform:uppercase;margin-bottom:8px;">
-                        Second Place</div>
+                        Second Place <br>
+                        3000 IR
+                    </div>
                     <!--<div
                         style="font-family:'Orbitron',monospace;font-size:3rem;font-weight:900;color:var(--pri);line-height:1;filter:drop-shadow(0 0 20px rgba(167,139,250,0.5));margin-bottom:8px;">
                         ₹15,000</div>-->
@@ -3364,7 +3421,9 @@
                         </svg></div>
                     <div
                         style="font-family:'Orbitron',monospace;font-size:11px;letter-spacing:3px;color:#34d399;text-transform:uppercase;margin-bottom:8px;">
-                        Third Place</div>
+                        Third Place <br>
+                        2000 IR
+                    </div>
                     <!--<div
                         style="font-family:'Orbitron',monospace;font-size:3rem;font-weight:900;color:#34d399;line-height:1;filter:drop-shadow(0 0 20px rgba(52,211,153,0.5));margin-bottom:8px;">
                         ₹10,000</div>-->
@@ -3391,7 +3450,7 @@
 
 
             <!-- About Department -->
-            <section id="about-dept">
+            <section id="about-dept" style="padding-bottom: 20px;">
                 <div class="dept-content">
                     <div class="dept-text">
                         <h2 class="section-title">ABOUT OUR DEPARTMENT</h2>
@@ -3421,9 +3480,9 @@
                     </div>
                 </div>
             </section>
-            <div style="text-align:center; margin-bottom:50px;">
+            <div style="text-align:center; margin-bottom:40px; margin-top:20px;">
                 <div
-                    style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:6px;color:var(--pri);text-transform:uppercase;margin-bottom:14px;">
+                    style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:6px;color:var(--pri);text-transform:uppercase;margin-bottom:14px; display: flex; align-items: center; justify-content: center; gap: 14px;">
                     :: GET IN TOUCH ::
                 </div>
                 <h2
@@ -3433,7 +3492,8 @@
                 </h2>
             </div>
 
-            <div style="display:flex;flex-wrap:wrap;gap:28px;justify-content:center;max-width:1050px;margin:0 auto;">
+            <div
+                style="display:flex;flex-wrap:wrap;gap:28px;justify-content:center;max-width:1050px;margin:0 auto; padding-bottom: 20px;">
 
                 <div class="coord-card">
                     <div class="coord-name">VARUN KALYAN K</div>
@@ -3453,7 +3513,7 @@
             </div>
         </section>
         <!-- Core Team Section -->
-        <section id="core-team" style="padding: 100px 5%; position: relative; z-index: 10;">
+        <section id="core-team" style="padding: 40px 5% 100px 5%; position: relative; z-index: 10;">
             <div style="text-align: center; margin-bottom: 60px;">
                 <h2 class="section-title">CORE TEAM</h2>
                 <p class="section-sub">The Student force driving TECHXORA '26 </p>
@@ -3649,6 +3709,22 @@
                         Food & Venue</h3>
                     <p style="font-size: 0.85rem; color: var(--muted);">Hospitality & Operations</p>
                 </div>
+
+                <!-- 11. Certification -->
+                <div class="team-card" onclick="openTeamModal('certification')"
+                    style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align: middle; display: inline-block;">
+                            <circle cx="12" cy="8" r="7"></circle>
+                            <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                        </svg></div>
+                    <h3
+                        style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--sec); margin-bottom: 8px;">
+                        Certification Team</h3>
+                    <p style="font-size: 0.85rem; color: var(--muted);">Certificates & Honors</p>
+                </div>
             </div>
 
 
@@ -3700,89 +3776,77 @@
             </div>
         </div>
 
-        <!-- Convenors -->
-        <section id="about" style="padding:80px 24px;">
-            <h2 class="section-title">CONVENORS &amp; PATRONS</h2>
+        <!-- Department Credits -->
+        <section id="department-credits" style="padding:60px 24px; text-align: center; position: relative;">
+            <div
+                style="position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(167,139,250,0.1), transparent 50%); pointer-events: none;">
+            </div>
+            <h2 class="section-title"
+                style="font-size: clamp(1.5rem, 3vw, 2.2rem); background: linear-gradient(135deg, #c4b5fd, #a78bfa, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px rgba(167,139,250,0.4)); letter-spacing: 4px; border: 1px solid rgba(167,139,250,0.25); padding: 25px 45px; border-radius: 16px; display: inline-block; background-color: rgba(10,8,22,0.6); box-shadow: inset 0 0 20px rgba(167,139,250,0.05), 0 15px 35px rgba(0,0,0,0.3); backdrop-filter: blur(8px);">
+                ALL DONE BY CSE DEPARTMENT AND FACULTY
+            </h2>
+        </section>
+
+        <!-- Administration People -->
+        <section id="about" style="padding:0px 24px; margin-top:20px; padding-bottom: 20px;">
+            <h2 class="section-title">ADMINISTRATION PEOPLE</h2>
             <p class="section-sub">Meet the visionaries and leaders who make TECHXORA 26 possible.</p>
 
             <div style="display:flex;flex-wrap:wrap;gap:32px;justify-content:center;margin-top:48px;max-width:1100px;">
 
-                <!-- Principal -->
+                <!-- HOD -->
                 <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:36px 28px;text-align:center;width:260px;transition:transform 0.3s,box-shadow 0.3s;"
                     onmouseover="this.style.transform='translateY(-8px)';this.style.boxShadow='0 20px 40px rgba(0,245,255,0.12)'"
                     onmouseout="this.style.transform='';this.style.boxShadow=''">
-                    <!-- <div
-                            style="width:110px;height:110px;border-radius:50%;overflow:hidden;border:3px solid var(--cyan);box-shadow:0 0 20px var(--cyan-glow);margin:0 auto 20px;background:rgba(0,245,255,0.05);">
-                            <img src="{{ url_for('static', filename='logos/principal.jpg') }}"
-                                onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\'font-size:3rem;line-height:110px;\'></span>'"
-                                alt="Principal" style="width:100%;height:100%;object-fit:cover;">
-                        </div>-->
                     <div
                         style="font-size:0.7rem;color:var(--cyan);letter-spacing:3px;font-weight:600;margin-bottom:6px;">
-                        PATRON</div>
+                        ADMINISTRATION</div>
                     <div
                         style="font-family:'Bebas Neue',cursive;font-size:1.4rem;color:var(--text);letter-spacing:1px;margin-bottom:4px;">
-                        Dr. Srinivasan Alavandar</div>
-                    <div style="font-size:0.82rem;color:var(--muted);">Principal</div>
+                        Dr. Balaji Madhavan</div>
+                    <div style="font-size:0.82rem;color:var(--muted);">Head of Department-CSE</div>
                     <div style="font-size:0.78rem;color:var(--muted);margin-top:2px;">Agni College of Technology
                     </div>
                 </div>
+
                 <!-- DEAN ACADEMICS -->
                 <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:36px 28px;text-align:center;width:260px;transition:transform 0.3s,box-shadow 0.3s;"
                     onmouseover="this.style.transform='translateY(-8px)';this.style.boxShadow='0 20px 40px rgba(168,85,247,0.12)'"
                     onmouseout="this.style.transform='';this.style.boxShadow=''">
-                    <!-- <div
-                            style="width:110px;height:110px;border-radius:50%;overflow:hidden;border:3px solid #a855f7;box-shadow:0 0 20px rgba(168,85,247,0.3);margin:0 auto 20px;background:rgba(168,85,247,0.05);">
-                            <img src="{{ url_for('static', filename='logos/hod.jpg') }}"
-                                onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\'font-size:3rem;line-height:110px;\'></span>'"
-                                alt="Dean Academics" style="width:100%;height:100%;object-fit:cover;">
-                        </div>-->
                     <div style="font-size:0.7rem;color:#a855f7;letter-spacing:3px;font-weight:600;margin-bottom:6px;">
-                        CONVENOR</div>
+                        ADMINISTRATION</div>
                     <div
                         style="font-family:'Bebas Neue',cursive;font-size:1.4rem;color:var(--text);letter-spacing:1px;margin-bottom:4px;">
-                        Dr.T Anand</div>
+                        Dr. T Anand</div>
                     <div style="font-size:0.82rem;color:var(--muted);">Dean Academics</div>
                     <div style="font-size:0.78rem;color:var(--muted);margin-top:2px;">Agni College of Technology
                     </div>
                 </div>
-                <!-- DEAN -->
+
+                <!-- DEAN ADMINISTRATION -->
                 <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:36px 28px;text-align:center;width:260px;transition:transform 0.3s,box-shadow 0.3s;"
                     onmouseover="this.style.transform='translateY(-8px)';this.style.boxShadow='0 20px 40px rgba(168,85,247,0.12)'"
                     onmouseout="this.style.transform='';this.style.boxShadow=''">
-                    <!-- <div
-                            style="width:110px;height:110px;border-radius:50%;overflow:hidden;border:3px solid #a855f7;box-shadow:0 0 20px rgba(168,85,247,0.3);margin:0 auto 20px;background:rgba(168,85,247,0.05);">
-                            <img src="{{ url_for('static', filename='logos/hod.jpg') }}"
-                                onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\'font-size:3rem;line-height:110px;\'></span>'"
-                                alt="Dean Administration" style="width:100%;height:100%;object-fit:cover;">
-                        </div>-->
                     <div style="font-size:0.7rem;color:#a855f7;letter-spacing:3px;font-weight:600;margin-bottom:6px;">
-                        CONVENOR</div>
-                    <div
-                        style="font-family:'Bebas Neue',cursive;font-size:1.4rem;color:var(--text);letter-spacing:1px;margin-bottom:4px;">
+                        ADMINISTRATION</div>
+                    <div style="font-family:'Bebas Neue',cursive;font-size:1.4rem;color:var(--text);margin-bottom:4px;">
                         Dr.A Kalaimurugan</div>
                     <div style="font-size:0.82rem;color:var(--muted);">Dean Administration</div>
                     <div style="font-size:0.78rem;color:var(--muted);margin-top:2px;">Agni College of Technology
                     </div>
                 </div>
 
-                <!-- HOD -->
+                <!-- Principal -->
                 <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:36px 28px;text-align:center;width:260px;transition:transform 0.3s,box-shadow 0.3s;"
                     onmouseover="this.style.transform='translateY(-8px)';this.style.boxShadow='0 20px 40px rgba(0,245,255,0.12)'"
                     onmouseout="this.style.transform='';this.style.boxShadow=''">
-                    <!-- <div
-                            style="width:110px;height:110px;border-radius:50%;overflow:hidden;border:3px solid var(--cyan);box-shadow:0 0 20px var(--cyan-glow);margin:0 auto 20px;background:rgba(0,245,255,0.05);">
-                            <img src="{{ url_for('static', filename='logos/principal.jpg') }}"
-                                onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\'font-size:3rem;line-height:110px;\'></span>'"
-                                alt="HOD" style="width:100%;height:100%;object-fit:cover;">
-                        </div>-->
                     <div
                         style="font-size:0.7rem;color:var(--cyan);letter-spacing:3px;font-weight:600;margin-bottom:6px;">
-                        CONVENOR</div>
+                        ADMINISTRATION</div>
                     <div
                         style="font-family:'Bebas Neue',cursive;font-size:1.4rem;color:var(--text);letter-spacing:1px;margin-bottom:4px;">
-                        Dr. Balaji Madhavan</div>
-                    <div style="font-size:0.82rem;color:var(--muted);">Head of Department-CSE</div>
+                        Dr. Srinivasan Alavandar</div>
+                    <div style="font-size:0.82rem;color:var(--muted);">Principal</div>
                     <div style="font-size:0.78rem;color:var(--muted);margin-top:2px;">Agni College of Technology
                     </div>
                 </div>
@@ -4073,10 +4137,7 @@
                         </div>
                     </div>
 
-                    <div
-                        style="font-family:'Space Mono',monospace;font-size:0.75rem;color:rgba(167,139,250,0.4);letter-spacing:1px; margin-bottom: 8px;">
-                        © 2026 TECHXORA Management System <br> Agni College of Technology
-                    </div>
+
                 </div>
 
                 <!-- Right Map -->
@@ -4101,22 +4162,35 @@
                         style="font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:4px;text-transform:uppercase;margin-bottom:16px;background:linear-gradient(90deg,#a78bfa,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
                         Developed By
                     </div>
-                    <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
+                    <div
+                        style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center;align-items:center; max-width: 800px; margin: 0 auto;">
 
                         <span
-                            style="font-family:'Orbitron',monospace;font-size:0.75rem;font-weight:700;padding:7px 16px;background:linear-gradient(135deg,rgba(167,139,250,0.18),rgba(167,139,250,0.05));border:1px solid rgba(167,139,250,0.5);border-radius:8px;color:#c4b5fd;letter-spacing:2px;box-shadow:0 0 16px rgba(167,139,250,0.2),inset 0 0 8px rgba(167,139,250,0.05);">SAM
+                            style="font-family:'Orbitron',monospace;font-size:0.85rem;font-weight:700;padding:8px 20px;background:linear-gradient(135deg,rgba(167,139,250,0.18),rgba(167,139,250,0.05));border:1px solid rgba(167,139,250,0.5);border-radius:8px;color:#c4b5fd;letter-spacing:2px;box-shadow:0 0 16px rgba(167,139,250,0.2),inset 0 0 8px rgba(167,139,250,0.05);">SAM
                             PRINCE ABRAHAM S</span>
-                        <span style="color:rgba(167,139,250,0.3);font-size:1rem;">·</span>
+
                         <span
-                            style="font-family:'Orbitron',monospace;font-size:0.75rem;font-weight:700;padding:7px 16px;background:linear-gradient(135deg,rgba(52,211,153,0.18),rgba(52,211,153,0.05));border:1px solid rgba(52,211,153,0.5);border-radius:8px;color:#34d399;letter-spacing:2px;box-shadow:0 0 16px rgba(52,211,153,0.2),inset 0 0 8px rgba(52,211,153,0.05);">TAMILSELVA
+                            style="font-family:'Orbitron',monospace;font-size:0.85rem;font-weight:700;padding:8px 20px;background:linear-gradient(135deg,rgba(52,211,153,0.18),rgba(52,211,153,0.05));border:1px solid rgba(52,211,153,0.5);border-radius:8px;color:#34d399;letter-spacing:2px;box-shadow:0 0 16px rgba(52,211,153,0.2),inset 0 0 8px rgba(52,211,153,0.05);">TAMILSELVA
                             S</span>
-                        <span style="color:rgba(167,139,250,0.3);font-size:1rem;">·</span>
+
                         <span
-                            style="font-family:'Orbitron',monospace;font-size:0.75rem;font-weight:700;padding:7px 16px;background:linear-gradient(135deg,rgba(251,191,36,0.18),rgba(251,191,36,0.05));border:1px solid rgba(251,191,36,0.5);border-radius:8px;color:#fbbf24;letter-spacing:2px;box-shadow:0 0 16px rgba(251,191,36,0.2),inset 0 0 8px rgba(251,191,36,0.05);">SHAKTHI
+                            style="font-family:'Orbitron',monospace;font-size:0.85rem;font-weight:700;padding:8px 20px;background:linear-gradient(135deg,rgba(251,191,36,0.18),rgba(251,191,36,0.05));border:1px solid rgba(251,191,36,0.5);border-radius:8px;color:#fbbf24;letter-spacing:2px;box-shadow:0 0 16px rgba(251,191,36,0.2),inset 0 0 8px rgba(251,191,36,0.05);">SHAKTHI
                             SHIVA MURUGAN AR</span>
+
                         <span
-                            style="font-family:'Orbitron',monospace;font-size:0.75rem;font-weight:700;padding:7px 16px;background:linear-gradient(135deg,rgba(251,191,36,0.18),rgba(251,191,36,0.05));border:1px solid rgba(190, 51, 20, 0.5);border-radius:8px;color:#f01105;letter-spacing:2px;box-shadow:0 0 16px rgba(251,191,36,0.2),inset 0 0 8px rgba(251,191,36,0.05);">
+                            style="font-family:'Orbitron',monospace;font-size:0.85rem;font-weight:700;padding:8px 20px;background:linear-gradient(135deg,rgba(56, 189, 248, 0.18),rgba(56, 189, 248, 0.05));border:1px solid rgba(56, 189, 248, 0.5);border-radius:8px;color:#38bdf8;letter-spacing:2px;box-shadow:0 0 16px rgba(56, 189, 248, 0.2),inset 0 0 8px rgba(56, 189, 248, 0.05);">
                             SANJAY R</span>
+
+                        <span
+                            style="font-family:'Orbitron',monospace;font-size:0.85rem;font-weight:700;padding:8px 20px;background:linear-gradient(135deg,rgba(244, 114, 182, 0.18),rgba(244, 114, 182, 0.05));border:1px solid rgba(244, 114, 182, 0.5);border-radius:8px;color:#f472b6;letter-spacing:2px;box-shadow:0 0 16px rgba(244, 114, 182, 0.2),inset 0 0 8px rgba(244, 114, 182, 0.05);">
+                            VISHNU K</span>
+                    </div>
+
+                    <div
+                        style="margin-top: 30px; font-family:'Space Mono',monospace;font-size:0.75rem;color:rgba(167,139,250,0.5);letter-spacing:1px;">
+                        ©
+                        <script>document.write(new Date().getFullYear())</script> TECHXORA -Department of CSE <br> Agni
+                        College of Technology
                     </div>
                 </div>
 
@@ -4374,16 +4448,17 @@
 
             // ── Core Team Modal
             const teamData = {
-                website: { name: 'Website Team', head: ['Sam Prince Abraham'], members: ['Shakthi SivaMurugan', 'Tamilselva', 'Sanjay R '] },
-                design: { name: 'Design Team', head: ['Rithiga Shanmugam'], members: ['Mahathi L', 'Sanjay R', 'Ragav S', 'Mahanam Roshan', 'Aaruhya Kumar N'] },
-                registration: { name: 'Registration Team', head: ['Madhesh', 'Manikandan'], members: ['Janani', 'Aswini', 'Martina Blessy', 'sowndarya', 'Sharmila', 'Abinaya', 'Hemaridha', 'Juveriya Fathima'] },
-                technical: { name: 'Technical Team ', head: ['Tamilselva S', 'Sam Prince Abraham '], members: ['Rohit Bala', 'Sathyanesar'] },
-                mentors: { name: 'Student Mentors', head: ['Srinath', 'Malavika'], members: ['Dharshan Raj B', 'Shakthi Siva Murugan AR', 'Kamalapriya KU', 'Gokulakannan', 'Ranjith R', 'Kisshor N', 'Varsha RG', 'Chitralekha SKM', 'Niraimathi P', 'Dheena B', 'Kulothugan UG', 'Yashwanth G', 'Dhavaseelan A', 'Sathyanesar E'] },
+                website: { name: 'Website Team', head: ['Sam Prince Abraham S'], members: ['Shakthi Sivamurugan A R', 'Tamilselva S', 'Sanjay R'] },
+                design: { name: 'Design Team', head: ['Rithiga Shanmugam  '], members: ['Aaruhya Kumar N  ', 'Mahathi L  ', 'Mahanam Roshan R  ', 'Rahav S  ', 'Sanjay R  '] },
+                registration: { name: 'Registration Team', head: ['Madhesh R  ', 'Mani Kandan C  '], members: ['Janani V  ', 'Sharmila D  ', 'Sowndharya R  ', 'Abinaya A  ', 'Juveriya Fathima K  ', 'Santhiya S  '] },
+                technical: { name: 'Technical Team', head: ['Sam Prince Abraham S  ', 'Tamilselva S  '], members: ['Rohit Bala S B  ', 'Sathyanesar E  ', 'Shakthi Sivamurugan A R  '] },
+                mentors: { name: 'Student Mentors Team', head: ['Srinath L  ', 'Malavika V  '], members: ['Dharshan Raj B  ', 'Shakthi Sivamurugan A R  ', 'Kamalapriya K U  ', 'Gokulakannan  ', 'Ranjith R  ', 'Kisshor N  ', 'Varsha R G  ', 'Chitralekha S K M  ', 'Niraimathi P  ', 'Yashwanth G  ', 'Dhavaseelan A  ', 'Tamilselva S  ', 'Sathyanesar E  ', 'Sam Prince Abraham S  ', 'Sanjay R  '] },
                 marketing: { name: 'Marketing', head: ['Pending'], members: [] },
                 sponsorship: { name: 'Sponsorship', head: ['Sanjay R', 'Priyadharshini'], members: [] },
-                judging: { name: 'Judging Panel', head: ['Vishnu Karnan', 'Mahalakshmi Babu'], members: ['Anudharshini S', 'Tarun Kumar', 'Shubiisha J', 'Devasena S', 'Eesha B'] },
+                judging: { name: 'Jury Panel Team', head: ['Vishnu Karnan  ', 'Mahalakshmi Babu  '], members: ['Anudharshini S  ', 'Tarun Kumar  ', 'Dheena B  ', 'Kulothungan U G  ', 'Tanvi Himachalan  ', 'Sujitha N  '] },
                 finance: { name: 'Finance', head: ['Arun'], members: [] },
-                food_venue: { name: 'Food & Venue', head: ['Sakthi S'], members: ['Vignesh V', 'Saran H', 'Rajesh M', 'Puthin M', 'Sanjai B', 'Thathapudi Blesson', 'Rokesh M'] }
+                food_venue: { name: 'Food & Venue', head: ['Sakthi S  ', 'Shermila Devi A  '], members: ['Saran H  ', 'Rajesh M  ', 'Puthin M  ', 'Thathapudi Blesson  ', 'Sanjai B  ', 'Rokesh M  '] },
+                certification: { name: 'Certification Team', head: ['Vignesh V  '], members: ['Devasena  ', 'Eesha B  ', 'Shubiisha J  '] }
             };
 
             function openTeamModal(deptKey) {

@@ -658,7 +658,8 @@
             {% else %}
             <div class="reg-eyebrow">Team Registration</div>
             <div class="reg-title">JOIN THE <span class="hi">HACKATHON</span></div>
-            <div class="reg-sub">Team size: 2–4 · All branches welcome</div>
+            <div class="reg-sub" style="color: var(--text); font-weight: 700; font-size: 13px;">Team size: 3–4 · All
+                branches welcome</div>
 
             <div class="steps">
                 <div class="step active">Step 1 · Team Details</div>
@@ -784,6 +785,19 @@
         const maxM = 4;
         const btnAdd = document.getElementById('btnAddMember');
         const membCont = document.getElementById('membersContainer');
+
+        /* FORM SUBMIT VALIDATION */
+        const regForm = document.getElementById('regForm');
+        if (regForm) {
+            regForm.addEventListener('submit', function (e) {
+                if (memberCount < 3) {
+                    e.preventDefault();
+                    // Alert directly on the page without blocking the UI flow
+                    alert("Minimum limit for registration is 3 persons per team. Please add more members.");
+                }
+            });
+        }
+
         if (btnAdd) {
             btnAdd.addEventListener('click', () => {
                 if (memberCount >= maxM) return;

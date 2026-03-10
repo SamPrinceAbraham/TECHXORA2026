@@ -189,8 +189,8 @@ def download_problem_pdf(problem_id):
             c.drawCentredString(W / 2, y_fb, 'AGNI COLLEGE OF TECHNOLOGY'); y_fb -= 16
             c.setFont('Helvetica', 8); c.setFillColor(muted)
             c.drawCentredString(W / 2, y_fb, '(An Autonomous Institution)'); y_fb -= 14
-            c.setFont('Helvetica-Bold', 9); c.setFillColor(muted)
-            c.drawCentredString(W / 2, y_fb, 'DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING'); y_fb -= 14
+            c.setFont('Helvetica-Bold', 12); c.setFillColor(body_c)
+            c.drawCentredString(W / 2, y_fb, 'DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING'); y_fb -= 18
             c.setFont('Helvetica-Bold', 11); c.setFillColor(body_c)
             c.drawCentredString(W / 2, y_fb, "TECHXORA '26"); y_fb -= 6
             y = y_fb
@@ -200,6 +200,16 @@ def download_problem_pdf(problem_id):
         # ── Divider ────────────────────────────────────────────────────────────
         c.setStrokeColor(colors.HexColor('#cccccc'))
         c.setLineWidth(0.5)
+        c.line(MARGIN_L, y, MARGIN_R, y)
+        y -= 25
+
+        # ── Department Add-on ──────────────────────────────────────────────────
+        c.setFont('Helvetica-Bold', 14)
+        c.setFillColor(body_c)
+        c.drawCentredString(W / 2, y, 'DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING')
+        y -= 20
+
+        # ── Divider ────────────────────────────────────────────────────────────
         c.line(MARGIN_L, y, MARGIN_R, y)
         y -= 40
 
