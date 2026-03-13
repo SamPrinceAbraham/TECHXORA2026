@@ -704,15 +704,15 @@
                     </select>
                 </div>
 
-                <div class="form-group" style="margin-bottom:28px;">
-                    <label>College / Institution <span>*</span></label>
-                    <input type="text" name="college" class="fc" placeholder="e.g. Agni College of Technology" required>
-                </div>
 
                 <div id="membersContainer">
                     <div class="member-block">
                         <div class="member-label">MEMBER 1 — TEAM LEADER</div>
                         <div class="form-grid" style="margin-bottom:0;">
+                                <div class="form-group">
+                                    <label>college-name <span>*</span></label>
+                                    <input type="text" name="college" class="fc" placeholder="e.g Agni College of Technology " required>
+                                </div>
                             <div class="form-group">
                                 <label>Full Name <span>*</span></label>
                                 <input type="text" name="name[]" class="fc" placeholder="Full name" required>
@@ -809,6 +809,7 @@
                 <button type="button" style="background:none;border:none;color:var(--error);font-size:0.8rem;cursor:pointer;font-family:'Space Mono',monospace;" onclick="this.closest('.member-block').remove();memberCount--;checkMax();">REMOVE</button>
             </div>
             <div class="form-grid" style="margin-bottom:0;">
+                <div class="form-group"><label>College Name <span>*</span></label><input type="text" name="college[]" class="fc" placeholder="College name" required></div>
                 <div class="form-group"><label>Full Name <span>*</span></label><input type="text" name="name[]" class="fc" placeholder="Full name" required></div>
                 <div class="form-group"><label>Email <span>*</span></label><input type="email" name="email[]" class="fc" placeholder="Email address" required></div>
                 <div class="form-group full"><label>Phone <span>*</span></label><input type="tel" name="phone[]" class="fc" placeholder="Phone number" required></div>

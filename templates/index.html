@@ -475,11 +475,12 @@
         .hero-title {
             font-family: 'Orbitron', monospace;
             font-weight: 900;
-            font-size: clamp(2.5rem, 12vw, 9rem);
+            font-size: clamp(2.0rem, 10vw, 9rem);
             line-height: 0.8;
             margin-bottom: 14px;
             display: inline-block;
             position: relative;
+            white-space: nowrap;
             background: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 40%, #818cf8 70%, #f59e0b 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -512,9 +513,8 @@
             font-size: 0.4em;
             color: var(--sec);
             -webkit-text-fill-color: var(--sec);
-            position: absolute;
-            top: 0;
-            right: -1.7em;
+            position: relative;
+            top: -0.8em;
             filter: drop-shadow(0 0 20px var(--sec-glow));
         }
 
@@ -2116,9 +2116,9 @@
             <li><a href="#problems">Problem Statements</a></li>
             <li><a href="#register">Register</a></li>
             <li><a href="#about-dept">About</a></li>
+            <li><a href="#student">Contact</a></li>
             <li><a href="#core-team">Teams</a></li>
             <li><a href="#faq">FAQ</a></li>
-            <li><a href="#contact">Contact</a></li>
         </ul>
         <!-- Hamburger button for mobile -->
         <button class="hamburger" id="hamburger" aria-label="Open menu">
@@ -2179,16 +2179,17 @@
                         <img src="{{ url_for('static', filename='logos/sponsor2.jpeg') }}" alt="Sponsor 2"
                             style="height: auto; max-height: 85px; max-width: 100%; object-fit: contain; border-radius: 8px;">
                         <span
-                            style="font-family: 'Space Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; text-align: center;">Gaspear
+                            style="font-family: 'Space Mono', monospace; font-size: 11px; color: white; letter-spacing: 1.5px; text-transform: uppercase; text-align: center;">GRASPEAR
                             Solutions Pvt Ltd</span>
                     </div>
                 </div>
-                <div class="presents-text" style="margin-top: 15px;">presents</div>
-            </div>
 
+                2186: <div class="presents-text" style="margin-top: 15px;">presents</div>
+                2187:
             </div>
+            2188:
+            2189: <div style="margin: -30px auto 30px; text-align: center; width: 100%; padding: 0 15px;">
 
-            <div style="margin: -30px auto 30px; text-align: center; width: 100%; padding: 0 15px;">
                 <img src="{{ url_for('static', filename='logos/techXora.png') }}" alt="TECHXORA Logo"
                     style="height: auto; max-height: 360px; max-width: 100%; object-fit: contain; filter: drop-shadow(0 0 20px rgba(167, 139, 250, 0.4));">
             </div>
@@ -2280,8 +2281,7 @@
                             Branches</span>
                         <span
                             style="padding: 12px 24px; border: 1px solid rgba(245,158,11,0.3); border-radius: 30px; background: rgba(245,158,11,0.05); font-family: 'Space Mono', monospace; font-size: 11px; color: var(--sec); text-transform: uppercase; box-shadow: 0 0 15px rgba(245,158,11,0.1);">
-                            Cash
-                            Prizes</span>
+                            Cash Prizes</span>
 
                     </div>
                 </div>
@@ -2337,10 +2337,10 @@
                         <div>
                             <div
                                 style="font-family: 'Orbitron', monospace; font-size: 1.5rem; font-weight: 700; color: var(--sec);">
-                            </div>
+                                Cash</div>
                             <div
                                 style="font-family: 'Space Mono', monospace; font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;">
-                                Cash PRIZES</div>
+                                PRIZES</div>
                         </div>
                         <div>
                             <div
@@ -3286,10 +3286,10 @@
                         style="padding:24px 16px;background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.15);border-radius:10px;text-align:center;">
                         <div
                             style="font-family:'Orbitron',monospace;font-size:2.2rem;font-weight:900;color:var(--sec);line-height:1;">
-                        </div>
+                            Cash</div>
                         <div
                             style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-top:6px;">
-                            Cash Prizes</div>
+                            Prizes</div>
                     </div>
                     <div
                         style="padding:24px 16px;background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.15);border-radius:10px;text-align:center;">
@@ -3341,7 +3341,7 @@
                     <div
                         style="font-family:'Orbitron',monospace;font-size:11px;letter-spacing:3px;color:var(--sec);text-transform:uppercase;margin-bottom:8px;">
                         First Place <br>
-                        5000 IR
+
                     </div>
                     <!--<div
                         style="font-family:'Orbitron',monospace;font-size:3rem;font-weight:900;color:var(--sec);line-height:1;filter:drop-shadow(0 0 20px rgba(245,158,11,0.6));margin-bottom:8px;">
@@ -3352,8 +3352,8 @@
                     <ul style="list-style:none;text-align:left;">
                         <li
                             style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(220,210,255,0.6);margin-bottom:8px;padding-left:16px;position:relative;">
-                            <span style="position:absolute;left:0;color:var(--sec);">▸</span>Trophy + Certificate and
-                            Internship opportunities
+                            <span style="position:absolute;left:0;color:var(--sec);">▸</span>Trophy + Certificate
+
                         </li>
                         <!--<li
                             style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(220,210,255,0.6);margin-bottom:8px;padding-left:16px;position:relative;">
@@ -3384,7 +3384,7 @@
                     <div
                         style="font-family:'Orbitron',monospace;font-size:11px;letter-spacing:3px;color:var(--pri);text-transform:uppercase;margin-bottom:8px;">
                         Second Place <br>
-                        3000 IR
+
                     </div>
                     <!--<div
                         style="font-family:'Orbitron',monospace;font-size:3rem;font-weight:900;color:var(--pri);line-height:1;filter:drop-shadow(0 0 20px rgba(167,139,250,0.5));margin-bottom:8px;">
@@ -3426,7 +3426,7 @@
                     <div
                         style="font-family:'Orbitron',monospace;font-size:11px;letter-spacing:3px;color:#34d399;text-transform:uppercase;margin-bottom:8px;">
                         Third Place <br>
-                        2000 IR
+
                     </div>
                     <!--<div
                         style="font-family:'Orbitron',monospace;font-size:3rem;font-weight:900;color:#34d399;line-height:1;filter:drop-shadow(0 0 20px rgba(52,211,153,0.5));margin-bottom:8px;">
@@ -3437,7 +3437,7 @@
                     <ul style="list-style:none;text-align:left;">
                         <li
                             style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(220,210,255,0.6);margin-bottom:8px;padding-left:16px;position:relative;">
-                            <span style="position:absolute;left:0;color:#34d399;">▸</span>Bronze Trophy + Certificate
+                            <span style="position:absolute;left:0;color:#34d399;">▸</span> Trophy + Certificate
                         </li>
                         <!--<li
                             style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(220,210,255,0.6);margin-bottom:8px;padding-left:16px;position:relative;">
@@ -3484,7 +3484,7 @@
                     </div>
                 </div>
             </section>
-            <div style="text-align:center; margin-bottom:40px; margin-top:20px;">
+            <div id="student" style="text-align:center; margin-bottom:40px; margin-top:20px;">
                 <div
                     style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:6px;color:var(--pri);text-transform:uppercase;margin-bottom:14px; display: flex; align-items: center; justify-content: center; gap: 14px;">
                     :: GET IN TOUCH ::
@@ -3504,14 +3504,15 @@
                     <a class="coord-phone">+91 73587 89879</a>
                 </div>
 
-                <div class="coord-card">
-                    <div class="coord-name">BALAJI A D J</div>
-                    <a class="coord-phone">+91 86818 73891</a>
-                </div>
+
 
                 <div class="coord-card">
                     <div class="coord-name">MAGHALAKSHMI P</div>
                     <a class="coord-phone">+91 72007 95541</a>
+                </div>
+                <div class="coord-card">
+                    <div class="coord-name">BALAJI A D J</div>
+                    <a class="coord-phone">+91 86818 73891</a>
                 </div>
 
             </div>
@@ -3717,19 +3718,38 @@
                 <!-- 11. Certification -->
                 <div class="team-card" onclick="openTeamModal('certification')"
                     style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><svg xmlns="http://www.w3.org/2000/svg"
-                            width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            style="vertical-align: middle; display: inline-block;">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px; color: #ffffff;"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" style="vertical-align: middle; display: inline-block;">
                             <circle cx="12" cy="8" r="7"></circle>
                             <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
                         </svg></div>
                     <h3
-                        style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--sec); margin-bottom: 8px;">
+                        style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--pri); margin-bottom: 8px;">
                         Certification Team</h3>
                     <p style="font-size: 0.85rem; color: var(--muted);">Certificates & Honors</p>
                 </div>
+
+                <!-- 12. Volunteer Team -->
+                <div class="team-card" onclick="openTeamModal('volunteer')"
+                    style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s;">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px; color: #ffffff;"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" style="vertical-align: middle; display: inline-block;">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg></div>
+                    <h3
+                        style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; color: var(--sec); margin-bottom: 8px;">
+                        Volunteer Team</h3>
+                    <p style="font-size: 0.85rem; color: var(--muted);">Event Flow & Execution</p>
+                </div>
             </div>
+
 
 
             <style>
@@ -3786,8 +3806,8 @@
                 style="position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(167,139,250,0.1), transparent 50%); pointer-events: none;">
             </div>
             <h2 class="section-title"
-                style="font-size: clamp(1.5rem, 3vw, 2.2rem); background: linear-gradient(135deg, #c4b5fd, #a78bfa, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px rgba(167,139,250,0.4)); letter-spacing: 4px; border: 1px solid rgba(167,139,250,0.25); padding: 25px 45px; border-radius: 16px; display: inline-block; background-color: rgba(10,8,22,0.6); box-shadow: inset 0 0 20px rgba(167,139,250,0.05), 0 15px 35px rgba(0,0,0,0.3); backdrop-filter: blur(8px);">
-                ALL DONE BY CSE DEPARTMENT AND FACULTY
+                style="font-size: clamp(1.0rem, 2vw, 1.8rem); background: linear-gradient(135deg, #c4b5fd, #a78bfa, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px rgba(167,139,250,0.4)); letter-spacing: 4px; border: 1px solid rgba(167,139,250,0.25); padding: 25px 45px; border-radius: 16px; display: inline-block; background-color: rgba(10,8,22,0.6); box-shadow: inset 0 0 20px rgba(167,139,250,0.05), 0 15px 35px rgba(0,0,0,0.3); backdrop-filter: blur(8px);">
+                ALL FACULTIES AND STUDENTS OF CSE DEPARTMENT
             </h2>
         </section>
 
@@ -3887,7 +3907,7 @@
                 <div class="faq-item">
                     <button class="faq-toggle">What is the team size? <span class="faq-icon">+</span></button>
                     <div class="faq-content">
-                        <p>Teams must consist of 2 to 4 members. We encourage cross-disciplinary teams to bring
+                        <p>Teams must consist of 3 to 4 members. We encourage cross-disciplinary teams to bring
                             diverse perspectives to the problem statements.</p>
                     </div>
                 </div>
@@ -4457,12 +4477,13 @@
                 registration: { name: 'Registration Team', head: ['Madhesh R  ', 'Mani Kandan C  '], members: ['Janani V  ', 'Sharmila D  ', 'Sowndharya R  ', 'Abinaya A  ', 'Juveriya Fathima K  ', 'Santhiya S  '] },
                 technical: { name: 'Technical Team', head: ['Sam Prince Abraham S  ', 'Tamilselva S  '], members: ['Rohit Bala S B  ', 'Sathyanesar E  ', 'Shakthi Sivamurugan A R  '] },
                 mentors: { name: 'Student Mentors Team', head: ['Srinath L  ', 'Malavika V  '], members: ['Dharshan Raj B  ', 'Shakthi Sivamurugan A R  ', 'Kamalapriya K U  ', 'Gokulakannan  ', 'Ranjith R  ', 'Kisshor N  ', 'Varsha R G  ', 'Chitralekha S K M  ', 'Niraimathi P  ', 'Yashwanth G  ', 'Dhavaseelan A  ', 'Tamilselva S  ', 'Sathyanesar E  ', 'Sam Prince Abraham S  ', 'Sanjay R  '] },
-                marketing: { name: 'Marketing', head: ['Pending'], members: [] },
+                marketing: { name: 'Marketing', head: ['Subilin Greety K S', 'Hazura Thahasen T'], members: [] },
                 sponsorship: { name: 'Sponsorship', head: ['Sanjay R', 'Priyadharshini'], members: [] },
                 judging: { name: 'Jury Panel Team', head: ['Vishnu Karnan  ', 'Mahalakshmi Babu  '], members: ['Anudharshini S  ', 'Tarun Kumar  ', 'Dheena B  ', 'Kulothungan U G  ', 'Tanvi Himachalan  ', 'Sujitha N  '] },
                 finance: { name: 'Finance', head: ['Arun'], members: [] },
                 food_venue: { name: 'Food & Venue', head: ['Sakthi S  ', 'Shermila Devi A  '], members: ['Saran H  ', 'Rajesh M  ', 'Puthin M  ', 'Thathapudi Blesson  ', 'Sanjai B  ', 'Rokesh M  '] },
-                certification: { name: 'Certification Team', head: ['Vignesh V  '], members: ['Devasena  ', 'Eesha B  ', 'Shubiisha J  '] }
+                certification: { name: 'Certification Team', head: ['Vignesh V  '], members: ['Devasena  ', 'Eesha B  ', 'Shubiisha J  '] },
+                volunteer: { name: 'Volunteer Team', head: ['Aswini M', 'Harini R'], members: ['Martina Blessy J', 'Hemaridha S J', 'Thanigaaivelan E', 'Vignesh M', 'Vishal I', 'Sanjay M'] }
             };
 
             function openTeamModal(deptKey) {
