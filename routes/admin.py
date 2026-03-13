@@ -154,13 +154,16 @@ def export_csv():
     writer = csv.writer(output)
     writer.writerow(['Participant ID', 'Name', 'Email', 'Phone',
                      'Team', 'Domain', 'College', 'Inside', 'Food Issued',
-                     'Food Count', 'Registered At'])
+                     'Food Count', 'Needs Accommodation', 'Accommodation Notes', 'Registered At'])
     for p in ps:
         t = p.team_obj
         writer.writerow([p.unique_id, p.name, p.email, p.phone,
                          t.team_name if t else '', t.domain if t else '',
                          t.college if t else '', p.is_inside, p.food_issued,
-                         p.food_count, p.registered_at.strftime('%Y-%m-%d %H:%M')])
+                         p.food_count, 
+                         'Yes' if (t and t.needs_accommodation) else 'No',
+                         t.accommodation_notes if (t and t.accommodation_notes) else '',
+                         p.registered_at.strftime('%Y-%m-%d %H:%M')])
     output.seek(0)
     return Response(output, mimetype='text/csv',
                     headers={'Content-Disposition': 'attachment;filename=participants.csv'})
