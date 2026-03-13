@@ -2172,6 +2172,9 @@
                         style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 8px;">
                         <img src="{{ url_for('static', filename='logos/sponsor1.jpg') }}" alt="Sponsor 1"
                             style="height: auto; max-height: 85px; max-width: 100%; object-fit: contain; border-radius: 8px;">
+                        <span
+                            style="font-family: 'Space Mono', monospace; font-size: 11px; color: white; letter-spacing: 1.5px; text-transform: uppercase; text-align: center;">CSI
+                            CHAPTER</span>
                     </div>
 
                     <div
@@ -2185,10 +2188,10 @@
                 </div>
 
                 <div class="presents-text" style="margin-top: 15px;">presents</div>
-                
+
             </div>
-            
-             <div style="margin: -30px auto 30px; text-align: center; width: 100%; padding: 0 15px;">
+
+            <div style="margin: -30px auto 30px; text-align: center; width: 100%; padding: 0 15px;">
 
                 <img src="{{ url_for('static', filename='logos/techXora.png') }}" alt="TECHXORA Logo"
                     style="height: auto; max-height: 360px; max-width: 100%; object-fit: contain; filter: drop-shadow(0 0 20px rgba(167, 139, 250, 0.4));">
@@ -3811,8 +3814,94 @@
             </h2>
         </section>
 
+        <!-- Expert Committees & Advisors -->
+        <section id="expert-committees" style="padding: 60px 5% 40px 5%; position: relative; z-index: 10;">
+            <div style="text-align: center; margin-bottom: 50px;">
+                <h2 class="section-title">EXPERT COMMITTEES & ADVISORS</h2>
+                <p class="section-sub">Guiding the technical and academic excellence of TECHXORA '26</p>
+            </div>
+
+            <div
+                style="display: flex; flex-wrap: wrap; gap: 32px; justify-content: center; max-width: 1100px; margin: 0 auto;">
+                <!-- Technical Expert Committee -->
+                <div class="coord-card"
+                    style="width: 320px; min-height: 220px; display: flex; flex-direction: column; justify-content: center; padding: 30px;">
+                    <div
+                        style="font-family: 'Space Mono', monospace; font-size: 10px; color: var(--pri); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;">
+                        Industrial Expert Committee</div>
+                    <div class="coord-name"
+                        style="font-size: 1.2rem; line-height: 1.3; margin-bottom: 12px; color: #ffffff;">K
+                        VENKATACHALAM</div>
+                    <div style="font-size: 0.9rem; color: #ccbcfc; font-weight: 700; margin-bottom: 4px;">
+                        Program Manager | Agile Coach</div>
+                    <div style="font-size: 0.85rem; color: #ccbcfc; margin-bottom: 12px; font-weight: 700;">
+                        ScrumMaster/TCS</div>
+
+                </div>
+
+                <!-- Academic Experts Committee -->
+                <div class="coord-card" style="width: 320px; min-height: 220px; padding: 30px;">
+                    <div
+                        style="font-family: 'Space Mono', monospace; font-size: 10px; color: var(--pri); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 24px;">
+                        Academic Experts Committee</div>
+                    <div style="text-align: left; display: flex; flex-direction: column; gap: 18px;">
+                        <div>
+                            <div class="coord-name"
+                                style="font-size: 1.0rem; text-align: left; margin-bottom: 4px; color: #ffffff;">Dr.
+                                BALAJI MADHAVAN</div>
+                            <div
+                                style="font-size: 0.85rem; color: #ccbcfc; font-weight: 700; text-align: left; letter-spacing: 1px;">
+                                HOD CSE</div>
+                        </div>
+                        <div>
+                            <div class="coord-name"
+                                style="font-size: 1.0rem; text-align: left; margin-bottom: 4px; color: #ffffff;">Dr.
+                                M.V ISHWARYA</div>
+                            <div
+                                style="font-size: 0.85rem; color: #ccbcfc; font-weight: 700; text-align: left; letter-spacing: 1px;">
+                                HOD AIDS</div>
+                        </div>
+                        <div>
+                            <div class="coord-name"
+                                style="font-size: 1.0rem; text-align: left; margin-bottom: 4px; color: #ffffff;">Dr.
+                                G. SIMI MARGARAT</div>
+                            <div
+                                style="font-size: 0.85rem; color: #ccbcfc; font-weight: 700; text-align: left; letter-spacing: 1px;">
+                                HOD IT</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Faculty Advisors -->
+                <div class="coord-card"
+                    style="width: 320px; min-height: 220px; display: flex; flex-direction: column; justify-content: center; padding: 30px;">
+                    <div
+                        style="font-family: 'Space Mono', monospace; font-size: 10px; color: var(--pri); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px;">
+                        Faculty Advisors</div>
+                    <div style="text-align: left; display: flex; flex-direction: column; gap: 18px;">
+                        <div>
+                            <div class="coord-name"
+                                style="font-size: 1.1rem; margin-bottom: 4px; text-align: left; color: #ffffff;">Mr.
+                                SURESH C</div>
+                            <div
+                                style="font-size: 0.85rem; color: #ccbcfc; font-weight: 700; text-align: left; letter-spacing: 1px;">
+                                AP/CSE</div>
+                        </div>
+                        <div>
+                            <div class="coord-name"
+                                style="font-size: 1.1rem; margin-bottom: 4px; text-align: left; color: #ffffff;">Mr.
+                                KANNAN R</div>
+                            <div
+                                style="font-size: 0.85rem; color: #ccbcfc; font-weight: 700; text-align: left; letter-spacing: 1px;">
+                                AP/CSE</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Administration People -->
-        <section id="about" style="padding:0px 24px; margin-top:20px; padding-bottom: 20px;">
+        <section id="administration" style="padding:40px 24px; margin-top:0px; padding-bottom: 20px;">
             <h2 class="section-title">ADMINISTRATION PEOPLE</h2>
             <p class="section-sub">Meet the visionaries and leaders who make TECHXORA 26 possible.</p>
 
@@ -3822,9 +3911,7 @@
                 <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:36px 28px;text-align:center;width:260px;transition:transform 0.3s,box-shadow 0.3s;"
                     onmouseover="this.style.transform='translateY(-8px)';this.style.boxShadow='0 20px 40px rgba(0,245,255,0.12)'"
                     onmouseout="this.style.transform='';this.style.boxShadow=''">
-                    <div
-                        style="font-size:0.7rem;color:var(--cyan);letter-spacing:3px;font-weight:600;margin-bottom:6px;">
-                        ADMINISTRATION</div>
+
                     <div
                         style="font-family:'Bebas Neue',cursive;font-size:1.4rem;color:var(--text);letter-spacing:1px;margin-bottom:4px;">
                         Dr. Balaji Madhavan</div>
@@ -3837,8 +3924,7 @@
                 <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:36px 28px;text-align:center;width:260px;transition:transform 0.3s,box-shadow 0.3s;"
                     onmouseover="this.style.transform='translateY(-8px)';this.style.boxShadow='0 20px 40px rgba(168,85,247,0.12)'"
                     onmouseout="this.style.transform='';this.style.boxShadow=''">
-                    <div style="font-size:0.7rem;color:#a855f7;letter-spacing:3px;font-weight:600;margin-bottom:6px;">
-                        ADMINISTRATION</div>
+
                     <div
                         style="font-family:'Bebas Neue',cursive;font-size:1.4rem;color:var(--text);letter-spacing:1px;margin-bottom:4px;">
                         Dr. T Anand</div>
@@ -3851,8 +3937,7 @@
                 <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:36px 28px;text-align:center;width:260px;transition:transform 0.3s,box-shadow 0.3s;"
                     onmouseover="this.style.transform='translateY(-8px)';this.style.boxShadow='0 20px 40px rgba(168,85,247,0.12)'"
                     onmouseout="this.style.transform='';this.style.boxShadow=''">
-                    <div style="font-size:0.7rem;color:#a855f7;letter-spacing:3px;font-weight:600;margin-bottom:6px;">
-                        ADMINISTRATION</div>
+
                     <div style="font-family:'Bebas Neue',cursive;font-size:1.4rem;color:var(--text);margin-bottom:4px;">
                         Dr.A Kalaimurugan</div>
                     <div style="font-size:0.82rem;color:var(--muted);">Dean Administration</div>
@@ -3864,9 +3949,7 @@
                 <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:36px 28px;text-align:center;width:260px;transition:transform 0.3s,box-shadow 0.3s;"
                     onmouseover="this.style.transform='translateY(-8px)';this.style.boxShadow='0 20px 40px rgba(0,245,255,0.12)'"
                     onmouseout="this.style.transform='';this.style.boxShadow=''">
-                    <div
-                        style="font-size:0.7rem;color:var(--cyan);letter-spacing:3px;font-weight:600;margin-bottom:6px;">
-                        ADMINISTRATION</div>
+
                     <div
                         style="font-family:'Bebas Neue',cursive;font-size:1.4rem;color:var(--text);letter-spacing:1px;margin-bottom:4px;">
                         Dr. Srinivasan Alavandar</div>
@@ -4472,7 +4555,7 @@
 
             // ── Core Team Modal
             const teamData = {
-                website: { name: 'Website Team', head: ['Sam Prince Abraham S'], members: ['Shakthi Sivamurugan A R', 'Tamilselva S', 'Sanjay R'] },
+                website: { name: 'Website Team', head: ['Sam Prince Abraham S'], members: ['Shakthi Sivamurugan A R', 'Tamilselva S', 'Sanjay R', 'Vishnu K'] },
                 design: { name: 'Design Team', head: ['Rithiga Shanmugam  '], members: ['Aaruhya Kumar N  ', 'Mahathi L  ', 'Mahanam Roshan R  ', 'Rahav S  ', 'Sanjay R  '] },
                 registration: { name: 'Registration Team', head: ['Madhesh R  ', 'Mani Kandan C  '], members: ['Janani V  ', 'Sharmila D  ', 'Sowndharya R  ', 'Abinaya A  ', 'Juveriya Fathima K  ', 'Santhiya S  '] },
                 technical: { name: 'Technical Team', head: ['Sam Prince Abraham S  ', 'Tamilselva S  '], members: ['Rohit Bala S B  ', 'Sathyanesar E  ', 'Shakthi Sivamurugan A R  '] },

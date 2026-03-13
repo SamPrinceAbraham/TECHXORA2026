@@ -71,7 +71,7 @@ def delete_team(team_id):
     
     # If payment was not rejected, it was holding a slot. 
     # Return the slot back to the problem statement pool.
-    if team.payment_status != 'rejected' and team.problem_statement:
+    if team.payment_status == 'verified' and team.problem_statement:
         team.problem_statement.teams_selected = max(0, team.problem_statement.teams_selected - 1)
 
     # Delete Supabase files for all members
@@ -179,6 +179,11 @@ def payments():
 def verify_payment(pay_id):
     payment = Payment.query.get_or_404(pay_id)
     payment.status = 'verified'
+    
+    # If it was rejected before, increment the teams_selected again
+    if payment.team_obj.payment_status == 'rejected' and payment.team_obj.problem_statement:
+        payment.team_obj.problem_statement.teams_selected += 1
+
     payment.team_obj.payment_status = 'verified'
     
     # Trigger Email Notification with ID Cards

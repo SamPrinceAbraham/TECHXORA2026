@@ -24,6 +24,8 @@ class Team(db.Model):
     college = db.Column(db.String(200), nullable=True)
     payment_status = db.Column(db.String(20), default='pending')  # pending / verified
     problem_id = db.Column(db.Integer, db.ForeignKey('problem_statements.id'), nullable=True)
+    needs_accommodation = db.Column(db.Boolean, default=False)
+    accommodation_notes = db.Column(db.Text, nullable=True)
     registered_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     # Relationships

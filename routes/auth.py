@@ -43,6 +43,8 @@ def register_step1():
     names      = request.form.getlist('name[]')
     emails     = request.form.getlist('email[]')
     phones     = request.form.getlist('phone[]')
+    needs_acc  = request.form.get('needs_accommodation') == 'on'
+    acc_notes  = request.form.get('accommodation_notes', '').strip()
 
     # Basic validation
     if not team_name or not domain or not problem_id:
@@ -81,6 +83,8 @@ def register_step1():
         'domain_short': DOMAIN_CODES.get(domain, domain[:2].upper()),
         'college': college,
         'problem_id': int(problem_id),
+        'needs_accommodation': needs_acc,
+        'accommodation_notes': acc_notes,
         'members': members,
     }
     return redirect(url_for('auth.payment_page'))
@@ -136,6 +140,8 @@ def register_step2():
         college=reg['college'],
         problem_id=problem.id,
         payment_status='pending',
+        needs_accommodation=reg.get('needs_accommodation', False),
+        accommodation_notes=reg.get('accommodation_notes', ''),
     )
     db.session.add(team)
             

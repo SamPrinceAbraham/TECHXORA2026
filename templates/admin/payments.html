@@ -104,7 +104,7 @@
                         {% endif %}
                     </td>
                     <td>
-                        {% if pay.status == 'pending' %}
+                        {% if pay.status == 'pending' or pay.status == 'rejected' %}
                         <form method="POST" action="{{ url_for('admin.verify_payment', pay_id=pay.id) }}"
                             style="display:inline">
                             <button type="submit" class="btn btn-primary btn-sm"><svg xmlns="http://www.w3.org/2000/svg"
@@ -114,6 +114,7 @@
                                     <polyline points="20 6 9 17 4 12"></polyline>
                                 </svg> Verify</button>
                         </form>
+                        {% if pay.status == 'pending' %}
                         <form method="POST" action="{{ url_for('admin.reject_payment', pay_id=pay.id) }}"
                             style="display:inline;margin-left:6px">
                             <button type="submit" class="btn btn-danger btn-sm"><svg xmlns="http://www.w3.org/2000/svg"
@@ -124,6 +125,7 @@
                                     <line x1="6" y1="6" x2="18" y2="18"></line>
                                 </svg> Reject</button>
                         </form>
+                        {% endif %}
                         {% elif pay.status == 'verified' %}
                         <form method="POST" action="{{ url_for('admin.resend_email', pay_id=pay.id) }}"
                             style="display:inline">
