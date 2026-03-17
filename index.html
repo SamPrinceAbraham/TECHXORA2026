@@ -72,8 +72,8 @@
       </div>
 
       <div class="hero-cta">
-        <button class="btn btn-primary" onclick="showPage('register', document.querySelectorAll('.tab-btn')[1])">✦
-          Register Participant</button>
+        <button class="btn btn-outline" disabled style="opacity: 0.6; cursor: not-allowed;">✕
+          Registration Closed</button>
         <button class="btn btn-outline" onclick="showPage('scanner', document.querySelectorAll('.tab-btn')[2])">⬡ Open
           Scanner</button>
       </div>
@@ -97,43 +97,15 @@
   <!-- ═══════════ REGISTER PAGE ═══════════ -->
   <div id="page-register" class="page">
     <div style="max-width:680px;margin:0 auto;">
-      <div class="card">
-        <div class="card-title">Participant Registration</div>
-        <div class="card-sub">// Fill in details to generate QR ID card</div>
-        <div class="form-grid">
-          <div class="form-group">
-            <label>Full Name *</label>
-            <input type="text" id="reg-name" placeholder="Your full name">
-          </div>
-          <div class="form-group">
-            <label>Email *</label>
-            <input type="email" id="reg-email" placeholder="you@email.com">
-          </div>
-          <div class="form-group">
-            <label>Phone</label>
-            <input type="tel" id="reg-phone" placeholder="+91 98765 43210">
-          </div>
-          <div class="form-group">
-            <label>College / Institution *</label>
-            <input type="text" id="reg-college" placeholder="College name">
-          </div>
-          <div class="form-group">
-            <label>Team Name</label>
-            <input type="text" id="reg-team" placeholder="Optional team name">
-          </div>
-          <div class="form-group">
-            <label>Role</label>
-            <select id="reg-role">
-              <option value="Participant">Participant</option>
-              <option value="Mentor">Mentor</option>
-              <option value="Organizer">Organizer</option>
-              <option value="Judge">Judge</option>
-              <option value="Volunteer">Volunteer</option>
-            </select>
-          </div>
-        </div>
-        <button class="btn btn-primary" onclick="registerParticipant()" style="width:100%;justify-content:center;">
-          ✦ Generate QR &amp; ID Card
+      <div class="card" style="text-align: center; padding: 60px 20px;">
+        <div style="font-size: 4rem; margin-bottom: 20px;">🔒</div>
+        <div class="card-title">Registration Closed</div>
+        <div class="card-sub">// We are no longer accepting new registrations for TECHXORA '26</div>
+        <p style="color: var(--muted); margin-top: 24px; font-family: 'Share Tech Mono', monospace;">
+          Thank you for your interest. All slots for the hackathon have been filled or the registration period has ended.
+        </p>
+        <button class="btn btn-primary" onclick="showPage('home', document.querySelectorAll('.tab-btn')[0])" style="margin-top: 32px; width: auto; display: inline-flex;">
+          Back to Home
         </button>
       </div>
     </div>

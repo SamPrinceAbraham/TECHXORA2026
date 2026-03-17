@@ -29,85 +29,97 @@ def health_check():
 # ── Register Page ──────────────────────────────────────────────────────────────
 @auth_bp.route('/register')
 def register_page():
-    problems = ProblemStatement.query.all()
-    return render_template('register.html', problems=problems)
+    flash('Registration is now closed.', 'error')
+    return redirect(url_for('auth.index'))
+    if False:
+        problems = ProblemStatement.query.all()
+        return render_template('register.html', problems=problems)
 
 
 # ── Step 1: Accept team+member details, store in session ─────────────────────
 @auth_bp.route('/register/step1', methods=['POST'])
 def register_step1():
-    team_name  = request.form.get('team_name', '').strip()
-    domain     = request.form.get('domain', '').strip()
-    college    = request.form.get('college', '').strip()
-    problem_id = request.form.get('problem_id', '').strip()
-    names      = request.form.getlist('name[]')
-    emails     = request.form.getlist('email[]')
-    phones     = request.form.getlist('phone[]')
-    needs_acc  = request.form.get('needs_accommodation') == 'on'
-    acc_notes  = request.form.get('accommodation_notes', '').strip()
+    flash('Registration is now closed.', 'error')
+    return redirect(url_for('auth.index'))
+    if False:
+        team_name  = request.form.get('team_name', '').strip()
+        domain     = request.form.get('domain', '').strip()
+        college    = request.form.get('college', '').strip()
+        problem_id = request.form.get('problem_id', '').strip()
+        names      = request.form.getlist('name[]')
+        emails     = request.form.getlist('email[]')
+        phones     = request.form.getlist('phone[]')
+        needs_acc  = request.form.get('needs_accommodation') == 'on'
+        acc_notes  = request.form.get('accommodation_notes', '').strip()
 
-    # Basic validation
-    if not team_name or not domain or not problem_id:
-        flash('Team name, domain, and problem statement are required.', 'error')
-        return redirect(url_for('auth.register_page'))
+        # Basic validation
+        if not team_name or not domain or not problem_id:
+            flash('Team name, domain, and problem statement are required.', 'error')
+            return redirect(url_for('auth.register_page'))
 
-    # Filter out completely blank rows
-    members = []
-    for i in range(len(names)):
-        n = names[i].strip() if i < len(names) else ''
-        e = emails[i].strip().lower() if i < len(emails) else ''
-        ph = phones[i].strip() if i < len(phones) else ''
-        if n and e and ph:
-            members.append({'name': n, 'email': e, 'phone': ph})
+        # Filter out completely blank rows
+        members = []
+        for i in range(len(names)):
+            n = names[i].strip() if i < len(names) else ''
+            e = emails[i].strip().lower() if i < len(emails) else ''
+            ph = phones[i].strip() if i < len(phones) else ''
+            if n and e and ph:
+                members.append({'name': n, 'email': e, 'phone': ph})
 
-    if not members:
-        flash('At least one complete member entry is required.', 'error')
-        return redirect(url_for('auth.register_page'))
+        if not members:
+            flash('At least one complete member entry is required.', 'error')
+            return redirect(url_for('auth.register_page'))
 
-    if len(members) > 4:
-        flash('Maximum 4 members per team.', 'error')
-        return redirect(url_for('auth.register_page'))
+        if len(members) > 4:
+            flash('Maximum 4 members per team.', 'error')
+            return redirect(url_for('auth.register_page'))
 
-    # Check for duplicate emails in DB
-    all_emails = [m['email'] for m in members]
-    from models import Participant as P
-    existing = P.query.filter(P.email.in_(all_emails)).first()
-    if existing:
-        flash(f'Email {existing.email} is already registered.', 'error')
-        return redirect(url_for('auth.register_page'))
+        # Check for duplicate emails in DB
+        all_emails = [m['email'] for m in members]
+        from models import Participant as P
+        existing = P.query.filter(P.email.in_(all_emails)).first()
+        if existing:
+            flash(f'Email {existing.email} is already registered.', 'error')
+            return redirect(url_for('auth.register_page'))
 
-    # Store in session and redirect to payment page
-    session['reg_pending'] = {
-        'team_name': team_name,
-        'domain': domain,
-        'domain_short': DOMAIN_CODES.get(domain, domain[:2].upper()),
-        'college': college,
-        'problem_id': int(problem_id),
-        'needs_accommodation': needs_acc,
-        'accommodation_notes': acc_notes,
-        'members': members,
-    }
-    return redirect(url_for('auth.payment_page'))
+        # Store in session and redirect to payment page
+        session['reg_pending'] = {
+            'team_name': team_name,
+            'domain': domain,
+            'domain_short': DOMAIN_CODES.get(domain, domain[:2].upper()),
+            'college': college,
+            'problem_id': int(problem_id),
+            'needs_accommodation': needs_acc,
+            'accommodation_notes': acc_notes,
+            'members': members,
+        }
+        return redirect(url_for('auth.payment_page'))
 
 
 # ── Payment page ──────────────────────────────────────────────────────────────
 @auth_bp.route('/register/payment', methods=['GET'])
 def payment_page():
-    if 'reg_pending' not in session:
-        flash('Please complete Step 1 first.', 'error')
-        return redirect(url_for('auth.register_page'))
-    reg = session['reg_pending']
-    num_members = len(reg['members'])
-    fee = 300 * num_members
-    return render_template('payment.html', reg=reg, fee=fee, per_person=300)
+    flash('Registration is now closed.', 'error')
+    return redirect(url_for('auth.index'))
+    if False:
+        if 'reg_pending' not in session:
+            flash('Please complete Step 1 first.', 'error')
+            return redirect(url_for('auth.register_page'))
+        reg = session['reg_pending']
+        num_members = len(reg['members'])
+        fee = 300 * num_members
+        return render_template('payment.html', reg=reg, fee=fee, per_person=300)
 
 
 # ── Step 2: Process payment proof, generate IDs, QRs ─────────────────────────
 @auth_bp.route('/register/step2', methods=['POST'])
 def register_step2():
-    if 'reg_pending' not in session:
-        flash('Session expired. Please restart registration.', 'error')
-        return redirect(url_for('auth.register_page'))
+    flash('Registration is now closed.', 'error')
+    return redirect(url_for('auth.index'))
+    if False:
+        if 'reg_pending' not in session:
+            flash('Session expired. Please restart registration.', 'error')
+            return redirect(url_for('auth.register_page'))
 
     reg = session.pop('reg_pending')
     transaction_id = request.form.get('transaction_id', '').strip()
